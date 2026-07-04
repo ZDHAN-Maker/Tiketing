@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "J711T5QYHEQ=",
+  "success": true,
+  "projectFilePath": "D:\\Project\\Tiketing_1\\frontend\\Ticketing.Web\\Ticketing.Web.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\upris\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.9\\microsoft.aspnetcore.app.internal.assets.10.0.9.nupkg.sha512",
+    "C:\\Users\\upris\\.nuget\\packages\\mudblazor\\9.6.0\\mudblazor.9.6.0.nupkg.sha512"
+  ],
+  "logs": []
+}
