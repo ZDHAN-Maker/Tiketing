@@ -20,7 +20,7 @@ public partial class DiscountVoucher
     public int UsedCount { get; set; }
 
     public decimal? MinTransactionAmount { get; set; }
-
+    public DiscountType Type { get; set; }
     public DateTime ValidFrom { get; set; }
 
     public DateTime ValidUntil { get; set; }

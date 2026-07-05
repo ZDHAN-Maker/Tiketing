@@ -14,7 +14,7 @@ public partial class TicketScan
     public DateTime? ScanTime { get; set; }
 
     public string? LocationScanned { get; set; }
-    public enum ScanResult { Success, DuplicateScan, InvalidTicket, WrongEvent }
+    public ScanResult Result { get; set; }
 
     public string? DeviceInfo { get; set; }
 
