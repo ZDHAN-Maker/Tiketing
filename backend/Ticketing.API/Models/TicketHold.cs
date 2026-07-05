@@ -18,6 +18,7 @@ public partial class TicketHold
     public DateTime? HeldAt { get; set; }
 
     public DateTime ExpiresAt { get; set; }
+    public HoldStatus Status { get; set; }
 
     public virtual Booking? Booking { get; set; }
 

@@ -95,6 +95,10 @@ public partial class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasPostgresEnum<RoleScope>("iam", "role_scope");
+        modelBuilder.HasPostgresEnum<UserStatus>("iam", "user_status");
+        modelBuilder.HasPostgresEnum<BookingStatus>("ticketing", "booking_status");
+        modelBuilder.HasPostgresEnum<PaymentStatus>("ticketing", "payment_status");
         modelBuilder
             .HasPostgresEnum("booking_status", new[] { "AwaitingPayment", "Paid", "Cancelled", "Expired", "Refunded", "PartiallyRefunded" })
             .HasPostgresEnum("discount_type", new[] { "Percentage", "FixedAmount" })

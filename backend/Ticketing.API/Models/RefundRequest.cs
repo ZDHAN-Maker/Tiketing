@@ -14,7 +14,7 @@ public partial class RefundRequest
     public Guid RequestedBy { get; set; }
 
     public string? Reason { get; set; }
-
+    public RefundStatus Status { get; set; }
     public decimal Amount { get; set; }
 
     public Guid? ProcessedBy { get; set; }

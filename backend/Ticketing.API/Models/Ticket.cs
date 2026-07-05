@@ -15,6 +15,7 @@ public partial class Ticket
 
     public Guid? SeatId { get; set; }
 
+    public TicketStatus Status { get; set; }
     public string TicketNumber { get; set; } = null!;
 
     public string QrCodePayload { get; set; } = null!;

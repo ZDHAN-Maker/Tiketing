@@ -15,6 +15,7 @@ public partial class User
 
     public string PasswordHash { get; set; } = null!;
 
+    public UserStatus Status { get; set; }
     public DateTime? EmailVerifiedAt { get; set; }
 
     public DateTime? PhoneVerifiedAt { get; set; }

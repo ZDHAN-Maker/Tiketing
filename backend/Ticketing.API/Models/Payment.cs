@@ -22,6 +22,7 @@ public partial class Payment
     public decimal Amount { get; set; }
 
     public string Currency { get; set; } = null!;
+    public PaymentStatus Status { get; set; }
 
     public DateTime? PaymentTime { get; set; }
 

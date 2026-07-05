@@ -18,6 +18,7 @@ public partial class OrganizationMember
     public DateTime? JoinedAt { get; set; }
 
     public DateTime? CreatedAt { get; set; }
+    public OrgMemberStatus Status { get; set; }
 
     public virtual User? InvitedByNavigation { get; set; }
 

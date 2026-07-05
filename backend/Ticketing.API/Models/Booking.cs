@@ -12,7 +12,7 @@ public partial class Booking
     public string BookingNumber { get; set; } = null!;
 
     public Guid CustomerId { get; set; }
-
+    public BookingStatus Status { get; set; }
     public Guid EventId { get; set; }
 
     public Guid? VoucherId { get; set; }

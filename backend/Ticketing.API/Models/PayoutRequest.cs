@@ -20,6 +20,7 @@ public partial class PayoutRequest
     public Guid? ProcessedBy { get; set; }
 
     public string? BankReference { get; set; }
+    public PayoutStatus Status { get; set; }
 
     public string? Notes { get; set; }
 

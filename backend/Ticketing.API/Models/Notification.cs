@@ -12,6 +12,7 @@ public partial class Notification
     public string TemplateCode { get; set; } = null!;
 
     public string? Payload { get; set; }
+    public enum NotificationChannel { Email, SMS, Push, InApp }
 
     public DateTime? SentAt { get; set; }
 

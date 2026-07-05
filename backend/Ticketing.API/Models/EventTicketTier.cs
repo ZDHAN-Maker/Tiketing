@@ -28,6 +28,7 @@ public partial class EventTicketTier
     public int MinPurchasePerTxn { get; set; }
 
     public int MaxPurchasePerTxn { get; set; }
+    public TierType Type { get; set; }
 
     public DateTime? SalesStartAt { get; set; }
 

@@ -14,6 +14,7 @@ public partial class VenueSection
     public int Capacity { get; set; }
 
     public int? SortOrder { get; set; }
+    public VenueSectionType Type { get; set; }
 
     public virtual ICollection<EventTicketTier> EventTicketTiers { get; set; } = new List<EventTicketTier>();
 

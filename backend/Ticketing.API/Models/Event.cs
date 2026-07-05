@@ -10,9 +10,9 @@ public partial class Event
     public Guid OrganizationId { get; set; }
 
     public Guid? CategoryId { get; set; }
-
+    public EventType EventType { get; set; }
     public Guid? VenueId { get; set; }
-
+    public EventApprovalStatus ApprovalStatus { get; set; }
     public string Title { get; set; } = null!;
 
     public string Slug { get; set; } = null!;
