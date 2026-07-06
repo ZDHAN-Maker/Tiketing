@@ -7,8 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 // =========================================================================
-var connectionString = "Host=localhost;Port=5432;Database=Tiketing;Username=postgres;Password=123";
-
+var connectionString = builder.Configuration.GetConnectionString("TicketingDb");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 // =========================================================================
