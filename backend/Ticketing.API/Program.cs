@@ -1,11 +1,47 @@
 using Microsoft.EntityFrameworkCore;
 using Ticketing.API.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Ticketing.API.Interfaces;
+using Ticketing.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddOpenApi();
 
+
+// Dependency Injection Setup
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddSingleton<ITokenService, TokenService>();
+
+// JWT Configuration
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var secretKey = Encoding.UTF8.GetBytes(jwtSettings["Secret"]!);
+
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(secretKey),
+        ClockSkew = TimeSpan.Zero 
+    };
+});
+
+builder.Services.AddControllers();
 // =========================================================================
 var connectionString = builder.Configuration.GetConnectionString("TicketingDb");
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -13,6 +49,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // =========================================================================
 
 var app = builder.Build();
+app.UseAuthentication(); 
+app.UseAuthorization();
+app.MapControllers();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
