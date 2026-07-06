@@ -1,6 +1,22 @@
-@Ticketing.API_HostAddress = http://localhost:5142
+@baseUrl = http://localhost:5142
 
-GET {{Ticketing.API_HostAddress}}/weatherforecast/
-Accept: application/json
+### 1. REGISTER USER BARU
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Budi Santoso",
+  "email": "budi@example.com",
+  "password": "PasswordSuperAman123!"
+}
 
 ###
+
+### 2. LOGIN USER (Untuk mendapatkan JWT Token)
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "budi@example.com",
+  "password": "PasswordSuperAman123!"
+}

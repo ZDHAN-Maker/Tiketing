@@ -9,13 +9,16 @@ D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\Ticketing.API.pdb
 D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\AutoMapper.dll
 D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\BCrypt-Net-Next.dll
+D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\Dapper.dll
 D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\DotNetEnv.dll
+D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\EFCore.NamingConventions.dll
 D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\FluentValidation.dll
 D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\FluentValidation.AspNetCore.dll
 D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\FluentValidation.DependencyInjectionExtensions.dll
 D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\Humanizer.dll
 D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
+D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll
 D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\Microsoft.Build.Framework.dll
 D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\Microsoft.CodeAnalysis.dll
 D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -149,5 +152,3 @@ D:\Project\Tiketing_1\backend\Ticketing.API\obj\Debug\net10.0\refint\Ticketing.A
 D:\Project\Tiketing_1\backend\Ticketing.API\obj\Debug\net10.0\Ticketing.API.pdb
 D:\Project\Tiketing_1\backend\Ticketing.API\obj\Debug\net10.0\Ticketing.API.genruntimeconfig.cache
 D:\Project\Tiketing_1\backend\Ticketing.API\obj\Debug\net10.0\ref\Ticketing.API.dll
-D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\Dapper.dll
-D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll
