@@ -149,3 +149,5 @@ D:\Project\Tiketing_1\backend\Ticketing.API\obj\Debug\net10.0\refint\Ticketing.A
 D:\Project\Tiketing_1\backend\Ticketing.API\obj\Debug\net10.0\Ticketing.API.pdb
 D:\Project\Tiketing_1\backend\Ticketing.API\obj\Debug\net10.0\Ticketing.API.genruntimeconfig.cache
 D:\Project\Tiketing_1\backend\Ticketing.API\obj\Debug\net10.0\ref\Ticketing.API.dll
+D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\Dapper.dll
+D:\Project\Tiketing_1\backend\Ticketing.API\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll
