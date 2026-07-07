@@ -38,15 +38,29 @@ namespace Ticketing.API.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // =========================================================================
+            // KONFIGURASI RELASI (JOIN TABLE)
+            // =========================================================================
+            // Mengatur Composite Primary Key untuk tabel perantara UserRole
+            modelBuilder.Entity<UserRole>()
+                .HasKey(ur => new { ur.UserId, ur.RoleId });
+
+
+            // =========================================================================
+            // DATA SEEDING (MASTER DATA & DEFAULT ADMIN)
+            // =========================================================================
+
+            // 1. Seed Master Data Roles
             modelBuilder.Entity<Role>().HasData(
-                            new Role { Id = 1, Name = "SuperAdmin" },
-                            new Role { Id = 2, Name = "EventOrganizer" },
-                            new Role { Id = 3, Name = "Customer" }
-                        );
+                new Role { Id = 1, Name = "SuperAdmin" },
+                new Role { Id = 2, Name = "EventOrganizer" },
+                new Role { Id = 3, Name = "Customer" }
+            );
 
             // 2. Seed Akun Super Admin Default
-            // Password di-hash menggunakan BCrypt: "AdminBesar123!"
-            var hashedAdminPassword = BCrypt.Net.BCrypt.HashPassword("AdminBesar123!");
+            // Menggunakan salt statis sepanjang 22 karakter agar nilai hash deterministik
+            var staticSalt = "$2a$11$abcdefghijklmnopqrstuu";
+            var hashedAdminPassword = BCrypt.Net.BCrypt.HashPassword("AdminBesar123!", staticSalt);
 
             modelBuilder.Entity<User>().HasData(
                 new User
