@@ -564,23 +564,23 @@ namespace Ticketing.API.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2026, 7, 7, 9, 35, 19, 142, DateTimeKind.Utc).AddTicks(7906),
+                            CreatedAt = new DateTime(2026, 7, 7, 9, 50, 53, 419, DateTimeKind.Utc).AddTicks(4472),
                             Name = "SuperAdmin",
-                            UpdatedAt = new DateTime(2026, 7, 7, 9, 35, 19, 142, DateTimeKind.Utc).AddTicks(7911)
+                            UpdatedAt = new DateTime(2026, 7, 7, 9, 50, 53, 419, DateTimeKind.Utc).AddTicks(4475)
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedAt = new DateTime(2026, 7, 7, 9, 35, 19, 142, DateTimeKind.Utc).AddTicks(8866),
+                            CreatedAt = new DateTime(2026, 7, 7, 9, 50, 53, 419, DateTimeKind.Utc).AddTicks(5264),
                             Name = "EventOrganizer",
-                            UpdatedAt = new DateTime(2026, 7, 7, 9, 35, 19, 142, DateTimeKind.Utc).AddTicks(8867)
+                            UpdatedAt = new DateTime(2026, 7, 7, 9, 50, 53, 419, DateTimeKind.Utc).AddTicks(5265)
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedAt = new DateTime(2026, 7, 7, 9, 35, 19, 142, DateTimeKind.Utc).AddTicks(8869),
+                            CreatedAt = new DateTime(2026, 7, 7, 9, 50, 53, 419, DateTimeKind.Utc).AddTicks(5267),
                             Name = "Customer",
-                            UpdatedAt = new DateTime(2026, 7, 7, 9, 35, 19, 142, DateTimeKind.Utc).AddTicks(8870)
+                            UpdatedAt = new DateTime(2026, 7, 7, 9, 50, 53, 419, DateTimeKind.Utc).AddTicks(5268)
                         });
                 });
 
@@ -808,13 +808,13 @@ namespace Ticketing.API.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2026, 7, 7, 9, 35, 19, 354, DateTimeKind.Utc).AddTicks(9893),
+                            CreatedAt = new DateTime(2026, 7, 7, 9, 50, 53, 632, DateTimeKind.Utc).AddTicks(8890),
                             Email = "superadmin@ticket.com",
                             IsActive = true,
                             Name = "Super Admin Utama",
-                            Password = "$2a$11$KAq9H9Xv3UcftDQ4s5nnr.7wWPgchWZPB5PrixTifw1yFzdJEA2ui",
+                            Password = "$2a$11$abcdefghijklmnopqrstuuktGbqrT8QbkGjM98OkmV8Y.ltInGree",
                             Phone = "081111111111",
-                            UpdatedAt = new DateTime(2026, 7, 7, 9, 35, 19, 354, DateTimeKind.Utc).AddTicks(9897)
+                            UpdatedAt = new DateTime(2026, 7, 7, 9, 50, 53, 632, DateTimeKind.Utc).AddTicks(8894)
                         });
                 });
 

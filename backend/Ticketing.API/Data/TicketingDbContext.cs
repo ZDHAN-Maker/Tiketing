@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Ticketing.API.Entities;
-
+using Microsoft.EntityFrameworkCore.Diagnostics;
 namespace Ticketing.API.Data
 {
     public class TicketingDbContext : DbContext
@@ -33,7 +33,11 @@ namespace Ticketing.API.Data
         public DbSet<CheckIn> CheckIns { get; set; }
         public DbSet<Refund> Refunds { get; set; }
         public DbSet<Review> Reviews { get; set; }
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.ConfigureWarnings(warnings =>
+                warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

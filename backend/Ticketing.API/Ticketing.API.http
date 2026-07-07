@@ -1,6 +1,11 @@
 @baseUrl = http://localhost:5142
 
-### 1. REGISTER USER BARU
+### =========================================================================
+### TAHAP 1: REGISTRASI & LOGIN USER BIASA (CUSTOMER)
+### =========================================================================
+
+### 1. REGISTER USER BARU (Budi)
+# Secara otomatis sistem akan memberikan role "Customer" ke Budi
 POST {{baseUrl}}/api/auth/register
 Content-Type: application/json
 
@@ -13,7 +18,57 @@ Content-Type: application/json
 
 ###
 
-### 2. LOGIN USER (Untuk mendapatkan JWT Token)
+### 2. LOGIN USER BUDI (Cek Role Awal)
+# Perhatikan bagian "roles" di respon, seharusnya berisi: ["Customer"]
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "budi@example.com",
+  "password": "PasswordSuperAman123!"
+}
+
+
+### =========================================================================
+### TAHAP 2: AUTENTIKASI SUPER ADMIN (DATA SEEDING)
+### =========================================================================
+
+### 3. LOGIN SEBAGAI SUPER ADMIN
+# Gunakan akun bawaan dari data seeding yang kita buat sebelumnya.
+# Salin (Copy) string "token" yang muncul dari hasil respon ini untuk Tahap 3.
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "superadmin@ticket.com",
+  "password": "AdminBesar123!"
+}
+
+
+### =========================================================================
+### TAHAP 3: MANAJEMEN ROLE (ROLE-BASED ACCESS CONTROL)
+### =========================================================================
+
+### 4. SUPER ADMIN MENGUBAH ROLE BUDI MENJADI EVENT ORGANIZER
+# Ganti 'ISI_TOKEN_SUPER_ADMIN_DI_SINI' dengan token yang didapat dari langkah nomor 3.
+# Asumsi: ID si Budi di database adalah 2 (karena Super Admin adalah ID 1).
+POST {{baseUrl}}/api/admin/change-user-role
+Authorization: Bearer ISI_TOKEN_SUPER_ADMIN_DI_SINI
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "newRoleName": "EventOrganizer"
+}
+
+
+### =========================================================================
+### TAHAP 4: VERIFIKASI PERUBAHAN
+### =========================================================================
+
+### 5. LOGIN ULANG USER BUDI (Verifikasi Role Baru)
+# Jalankan ini setelah role diubah oleh Admin.
+# Jika berhasil, bagian "roles" di respon sekarang akan berubah menjadi: ["EventOrganizer"]
 POST {{baseUrl}}/api/auth/login
 Content-Type: application/json
 
