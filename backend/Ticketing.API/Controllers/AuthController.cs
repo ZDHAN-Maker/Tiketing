@@ -1,44 +1,45 @@
+using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Ticketing.API.DTOs.Auth;
+using Ticketing.API.DTOs;
 using Ticketing.API.Interfaces;
 
-namespace Ticketing.API.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class AuthController : ControllerBase
+namespace Ticketing.API.Controllers
 {
-    private readonly IAuthService _authService;
-
-    public AuthController(IAuthService authService)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AuthController : ControllerBase
     {
-        _authService = authService;
-    }
+        private readonly IAuthService _authService;
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterRequestDto request, CancellationToken cancellationToken)
-    {
-        var result = await _authService.RegisterAsync(request, cancellationToken);
-        return Ok(result);
-    }
+        public AuthController(IAuthService authService)
+        {
+            _authService = authService;
+        }
 
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequestDto request, CancellationToken cancellationToken)
-    {
-        var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
-        var deviceInfo = Request.Headers["User-Agent"].ToString();
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterRequestDto request)
+        {
+            try
+            {
+                var result = await _authService.RegisterAsync(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
 
-        var result = await _authService.LoginAsync(request, ipAddress, deviceInfo, cancellationToken);
-        return Ok(result);
-    }
-
-    [HttpPost("refresh-token")]
-    public async Task<IActionResult> RefreshToken([FromBody] string token, CancellationToken cancellationToken)
-    {
-        var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
-        var deviceInfo = Request.Headers["User-Agent"].ToString();
-
-        var result = await _authService.RefreshTokenAsync(token, ipAddress, deviceInfo, cancellationToken);
-        return Ok(result);
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
+        {
+            var result = await _authService.LoginAsync(request);
+            if (result == null)
+            {
+                return Unauthorized(new { Message = "Email atau password salah." });
+            }
+            return Ok(result);
+        }
     }
 }

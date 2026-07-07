@@ -1,11 +1,9 @@
-using System.Security.Claims;
-using Ticketing.API.Models;
+using Ticketing.API.Entities;
 
-namespace Ticketing.API.Interfaces;
-
-public interface ITokenService
+namespace Ticketing.API.Interfaces
 {
-    string GenerateAccessToken(User user, IEnumerable<string> roles);
-    string GenerateRefreshToken();
-    ClaimsPrincipal? GetPrincipalFromExpiredToken(string token);
+    public interface ITokenService
+    {
+        string GenerateJwtToken(User user);
+    }
 }

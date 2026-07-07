@@ -1,10 +1,11 @@
-using Ticketing.API.DTOs.Auth;
+using System.Threading.Tasks;
+using Ticketing.API.DTOs;
 
-namespace Ticketing.API.Interfaces;
-
-public interface IAuthService
+namespace Ticketing.API.Interfaces
 {
-    Task<AuthResponseDto> RegisterAsync(RegisterRequestDto request, CancellationToken cancellationToken = default);
-    Task<AuthResponseDto> LoginAsync(LoginRequestDto request, string? ipAddress, string? deviceInfo, CancellationToken cancellationToken = default);
-    Task<AuthResponseDto> RefreshTokenAsync(string token, string? ipAddress, string? deviceInfo, CancellationToken cancellationToken = default);
+    public interface IAuthService
+    {
+        Task<AuthResponseDto?> RegisterAsync(RegisterRequestDto dto);
+        Task<AuthResponseDto?> LoginAsync(LoginRequestDto dto);
+    }
 }
