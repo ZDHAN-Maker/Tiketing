@@ -38,11 +38,37 @@ namespace Ticketing.API.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Role>().HasData(
+                            new Role { Id = 1, Name = "SuperAdmin" },
+                            new Role { Id = 2, Name = "EventOrganizer" },
+                            new Role { Id = 3, Name = "Customer" }
+                        );
+
+            // 2. Seed Akun Super Admin Default
+            // Password di-hash menggunakan BCrypt: "AdminBesar123!"
+            var hashedAdminPassword = BCrypt.Net.BCrypt.HashPassword("AdminBesar123!");
+
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = 1,
+                    Name = "Super Admin Utama",
+                    Email = "superadmin@ticket.com",
+                    Password = hashedAdminPassword,
+                    Phone = "081111111111",
+                    IsActive = true
+                }
+            );
+
+            // 3. Pasangkan User Admin Utama (Id 1) dengan Role SuperAdmin (Id 1)
+            modelBuilder.Entity<UserRole>().HasData(
+                new UserRole { UserId = 1, RoleId = 1 }
+            );
             // ==========================================
             // 1. AUTHENTICATION & RBAC CONFIGURATION
             // ==========================================
             modelBuilder.Entity<Role>().ToTable("roles");
-            
+
             modelBuilder.Entity<Permission>().ToTable("permissions");
             modelBuilder.Entity<Permission>().HasIndex(p => p.Name).IsUnique();
 

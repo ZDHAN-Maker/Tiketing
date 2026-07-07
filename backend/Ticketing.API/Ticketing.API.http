@@ -5,9 +5,10 @@ POST {{baseUrl}}/api/auth/register
 Content-Type: application/json
 
 {
-  "fullName": "Budi Santoso",
+  "name": "Budi Santoso",
   "email": "budi@example.com",
-  "password": "PasswordSuperAman123!"
+  "password": "PasswordSuperAman123!",
+  "phone": "081234567890"
 }
 
 ###
