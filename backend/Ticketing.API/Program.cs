@@ -13,10 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 // ==========================================
 builder.Services.AddControllers();
 
-// Register DbContext menggunakan MySQL (Pomelo)
+// Register DbContext menggunakan PostgreSQL
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<TicketingDbContext>(options =>
     options.UseNpgsql(connectionString));
+
 // ==========================================
 // 2. CONFIGURATION JWT AUTHENTICATION
 // ==========================================
@@ -30,6 +31,9 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
+    // FIX UTAMA: Hentikan .NET dari mengubah klaim token ("role", "nameid") menjadi URL panjang
+    options.MapInboundClaims = false; 
+
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
@@ -38,12 +42,15 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = jwtSettings.GetValue<string>("Issuer"),
         ValidAudience = jwtSettings.GetValue<string>("Audience"),
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!)),
+        
+        // Sesuaikan dengan key yang ada di dalam payload JWT JSON Anda
+        RoleClaimType = "role",
+        NameClaimType = "unique_name"
     };
 });
 
-// Nanti, ketika Anda membuat ulang IAuthService & ITokenService, 
-// Anda tinggal mendaftarkannya kembali di bawah baris ini:
+// Register Dependency Injection Services
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IOrganizerService, OrganizerService>();
@@ -60,7 +67,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Middleware urutan wajib
+// Urutan middleware tidak boleh tertukar
 app.UseAuthentication(); 
 app.UseAuthorization();
 

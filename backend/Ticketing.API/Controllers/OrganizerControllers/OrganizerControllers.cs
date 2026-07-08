@@ -53,8 +53,9 @@ namespace Ticketing.API.Controllers
         }
 
         // POST: api/Organizer
+        // PERBAIKAN: Menambahkan EventOrganizer agar Budi bisa membuat organizer baru
         [HttpPost]
-        [Authorize(Roles = "SuperAdmin,User")]
+        [Authorize(Roles = "SuperAdmin,User,EventOrganizer")]
         public async Task<IActionResult> Create([FromBody] CreateOrganizerDto dto)
         {
             try
@@ -69,8 +70,9 @@ namespace Ticketing.API.Controllers
         }
 
         // PUT: api/Organizer/{id}
+        // PERBAIKAN: Menambahkan SuperAdmin agar Admin Besar juga bisa update data profil
         [HttpPut("{id:long}")]
-        [Authorize(Roles = "EventOrganizer")]
+        [Authorize(Roles = "SuperAdmin,EventOrganizer")]
         public async Task<IActionResult> Update(long id, [FromBody] UpdateOrganizerDto dto)
         {
             try
@@ -95,7 +97,6 @@ namespace Ticketing.API.Controllers
         {
             try
             {
-                // ERROR FIXED: _context yang terselip sudah dihapus
                 var verified = await _organizerService.VerifyOrganizerAsync(id, dto.IsVerified);
                 if (!verified)
                 {
@@ -127,7 +128,7 @@ namespace Ticketing.API.Controllers
 
         // POST: api/Organizer/{id}/staffs
         [HttpPost("{id:long}/staffs")]
-        [Authorize(Roles = "EventOrganizer")]
+        [Authorize(Roles = "SuperAdmin,EventOrganizer")]
         public async Task<IActionResult> AddStaff(long id, [FromBody] AddStaffDto dto)
         {
             try
@@ -147,7 +148,7 @@ namespace Ticketing.API.Controllers
 
         // DELETE: api/Organizer/{id}/staffs/{staffId}
         [HttpDelete("{id:long}/staffs/{staffId:long}")]
-        [Authorize(Roles = "EventOrganizer")]
+        [Authorize(Roles = "SuperAdmin,EventOrganizer")]
         public async Task<IActionResult> RemoveStaff(long id, long staffId)
         {
             try

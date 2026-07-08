@@ -53,7 +53,7 @@ Content-Type: application/json
 # Ganti 'ISI_TOKEN_SUPER_ADMIN_DI_SINI' dengan token yang didapat dari langkah nomor 3.
 # Asumsi: ID si Budi di database adalah 2 (karena Super Admin adalah ID 1).
 POST {{baseUrl}}/api/admin/change-user-role
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJTdXBlciBBZG1pbiBVdGFtYSIsImVtYWlsIjoic3VwZXJhZG1pbkB0aWNrZXQuY29tIiwicm9sZSI6IlN1cGVyQWRtaW4iLCJuYmYiOjE3ODM0MTg2MzYsImV4cCI6MTc4MzQxOTUzNiwiaWF0IjoxNzgzNDE4NjM2LCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.7Cu6oNz_XG4VT7xqOZ7P6N42UPR0bvlXW6uwAN8l3Mc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJTdXBlciBBZG1pbiBVdGFtYSIsImVtYWlsIjoic3VwZXJhZG1pbkB0aWNrZXQuY29tIiwicm9sZSI6IlN1cGVyQWRtaW4iLCJuYmYiOjE3ODM1MDI4NzAsImV4cCI6MTc4MzUwMzc3MCwiaWF0IjoxNzgzNTAyODcwLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.O89HjaW8WoGao4gTpDv0WeapuimxD6-jCDNQNmYKfrE
 Content-Type: application/json
 
 {
@@ -81,16 +81,14 @@ Content-Type: application/json
 ### =========================================================================
 
 ### 6. EVENT ORGANIZER (Budi) MEMBUAT ORGANIZER BARU
-# Ganti 'TOKEN_LOG_IN_BUDI_DI_SINI' dengan token Budi hasil Login Tahap 4 (Role: EventOrganizer/User)
-# Asumsi: OwnerId adalah ID si Budi (ID: 2)
+# Gunakan Token hasil login BUDI (setelah rolenya berubah jadi EventOrganizer)
 POST {{baseUrl}}/api/Organizer
-Authorization: Bearer ISI_TOKEN_BUDI_DI_SINI
-Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGlAZXhhbXBsZS5jb20iLCJyb2xlIjoiRXZlbnRPcmdhbml6ZXIiLCJuYmYiOjE3ODM1MDI5MDMsImV4cCI6MTc4MzUwMzgwMywiaWF0IjoxNzgzNTAyOTAzLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.z8UYowKFHsGelzEZLBXI5xn4rT7dHU4N3H4QXb1xLJ8
 
 {
   "ownerId": 2,
   "name": "Budi Jaya Entertainment",
-  "description": "Organizer konser musik dan perlombaan regional Sumatra.",
+  "description": "Organizer konser musik regional Sumatra.",
   "logoUrl": "https://linkgambar.com/logo-budi.png"
 }
 
@@ -112,7 +110,7 @@ GET {{baseUrl}}/api/Organizer/1
 # Ganti 'TOKEN_SUPER_ADMIN_DI_SINI' dengan token dari langkah nomor 3.
 # Status 'isVerified' akan diubah menjadi true agar organizer ini aktif secara legal di sistem
 PATCH {{baseUrl}}/api/Organizer/1/verify
-Authorization: Bearer ISI_TOKEN_SUPER_ADMIN_DI_SINI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJTdXBlciBBZG1pbiBVdGFtYSIsImVtYWlsIjoic3VwZXJhZG1pbkB0aWNrZXQuY29tIiwicm9sZSI6IlN1cGVyQWRtaW4iLCJuYmYiOjE3ODM1MDI0NjMsImV4cCI6MTc4MzUwMzM2MywiaWF0IjoxNzgzNTAyNDYzLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.5QxKcSWV0BTZiBsljVMPgweAb0cjNCORnqO0e5QYfBI
 Content-Type: application/json
 
 {
@@ -121,15 +119,15 @@ Content-Type: application/json
 
 ###
 
-### 10. EVENT ORGANIZER (Budi) MEMPERBARUI DATA PROFIL ORGANIZER
-# Mengubah deskripsi atau nama organizer milik Budi
+### 10. EVENT ORGANIZER / SUPER ADMIN MEMPERBARUI DATA PROFIL ORGANIZER
+# Pastikan Token yang digunakan memiliki role yang diizinkan di Controller Anda
 PUT {{baseUrl}}/api/Organizer/1
-Authorization: Bearer ISI_TOKEN_BUDI_DI_SINI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJTdXBlciBBZG1pbiBVdGFtYSIsImVtYWlsIjoic3VwZXJhZG1pbkB0aWNrZXQuY29tIiwicm9sZSI6IlN1cGVyQWRtaW4iLCJuYmYiOjE3ODM1MDI0NjMsImV4cCI6MTc4MzUwMzM2MywiaWF0IjoxNzgzNTAyNDYzLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.5QxKcSWV0BTZiBsljVMPgweAb0cjNCORnqO0e5QYfBI
 Content-Type: application/json
 
 {
   "name": "Budi Jaya Entertainment - Updated",
-  "description": "Organizer konser musik skala Nasional dan Internasional.",
+  "description": "Organizer konser musik skala Nasional.",
   "logoUrl": "https://linkgambar.com/logo-budi-baru.png"
 }
 
@@ -153,11 +151,9 @@ Content-Type: application/json
 ###
 
 ### 12. EVENT ORGANIZER (Budi) MENAMBAHKAN WATI SEBAGAI STAFF
-# Asumsi: ID Organizer milik Budi adalah 1, dan ID User Wati yang baru daftar adalah 3
-# Budi menunjuk Wati memegang posisi "Ticketing Officer"
+# PENTING: Gunakan Token milik BUDI (EventOrganizer), karena Budi yang punya wewenang menambah staff
 POST {{baseUrl}}/api/Organizer/1/staffs
-Authorization: Bearer ISI_TOKEN_BUDI_DI_SINI
-Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGlAZXhhbXBsZS5jb20iLCJyb2xlIjoiRXZlbnRPcmdhbml6ZXIiLCJuYmYiOjE3ODM1MDI0NDYsImV4cCI6MTc4MzUwMzM0NiwiaWF0IjoxNzgzNTAyNDQ2LCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.qrDTTZimgBNPAip_bYajTA-lEQAEvxzGxM_zXEcDQ_M
 
 {
   "userId": 3,
@@ -167,14 +163,12 @@ Content-Type: application/json
 ###
 
 ### 13. LIHAT DAFTAR STAFF DARI ORGANIZER TERCENTU
-# Digunakan oleh Super Admin atau Event Organizer terkait untuk melihat siapa saja staff mereka
+# Gunakan Token milik BUDI atau SUPER ADMIN
 GET {{baseUrl}}/api/Organizer/1/staffs
-Authorization: Bearer ISI_TOKEN_BUDI_DI_SINI
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJTdXBlciBBZG1pbiBVdGFtYSIsImVtYWlsIjoic3VwZXJhZG1pbkB0aWNrZXQuY29tIiwicm9sZSI6IlN1cGVyQWRtaW4iLCJuYmYiOjE3ODM1MDI0NjMsImV4cCI6MTc4MzUwMzM2MywiaWF0IjoxNzgzNTAyNDYzLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.5QxKcSWV0BTZiBsljVMPgweAb0cjNCORnqO0e5QYfBI
 ###
 
 ### 14. EVENT ORGANIZER (Budi) MENGHAPUS STAFF DARI MANAJEMEN
-# Menghapus hak akses staff berdasarkan ID Organizer (1) dan ID Staff (Asumsi ID Staff di tabel adalah 1)
-# Jika sukses, endpoint ini mengembalikan HTTP Status 204 NoContent
+# Gunakan Token milik BUDI
 DELETE {{baseUrl}}/api/Organizer/1/staffs/1
-Authorization: Bearer ISI_TOKEN_BUDI_DI_SINI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJTdXBlciBBZG1pbiBVdGFtYSIsImVtYWlsIjoic3VwZXJhZG1pbkB0aWNrZXQuY29tIiwicm9sZSI6IlN1cGVyQWRtaW4iLCJuYmYiOjE3ODM1MDI0NjMsImV4cCI6MTc4MzUwMzM2MywiaWF0IjoxNzgzNTAyNDYzLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.5QxKcSWV0BTZiBsljVMPgweAb0cjNCORnqO0e5QYfBI
