@@ -46,7 +46,7 @@ builder.Services.AddAuthentication(options =>
 // Anda tinggal mendaftarkannya kembali di bawah baris ini:
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-
+builder.Services.AddScoped<IOrganizerService, OrganizerService>();
 
 var app = builder.Build();
 

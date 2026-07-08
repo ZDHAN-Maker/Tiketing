@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SdkBYnB9Ntk=",
+  "dgSpecHash": "qcYhGjkTjrY=",
   "success": true,
-  "projectFilePath": "D:\\Project\\Tiketing_1\\backend\\Ticketing.API\\Ticketing.API.csproj",
+  "projectFilePath": "D:\\Project\\Tiketing_1\\backend\\ticketing.API\\Ticketing.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\upris\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\upris\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -72,9 +72,9 @@
       "code": "NU1903",
       "level": "Warning",
       "message": "Package 'AutoMapper' 12.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x",
-      "projectPath": "D:\\Project\\Tiketing_1\\backend\\Ticketing.API\\Ticketing.API.csproj",
+      "projectPath": "D:\\Project\\Tiketing_1\\backend\\ticketing.API\\Ticketing.API.csproj",
       "warningLevel": 1,
-      "filePath": "D:\\Project\\Tiketing_1\\backend\\Ticketing.API\\Ticketing.API.csproj",
+      "filePath": "D:\\Project\\Tiketing_1\\backend\\ticketing.API\\Ticketing.API.csproj",
       "libraryId": "AutoMapper",
       "targetGraphs": [
         "net10.0"
