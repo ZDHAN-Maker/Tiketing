@@ -3735,11 +3735,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Project\\Tiketing_1\\backend\\ticketing.API\\Ticketing.API.csproj",
+      "projectUniqueName": "D:\\Project\\Tiketing_1\\backend\\Ticketing.API\\Ticketing.API.csproj",
       "projectName": "Ticketing.API",
-      "projectPath": "D:\\Project\\Tiketing_1\\backend\\ticketing.API\\Ticketing.API.csproj",
+      "projectPath": "D:\\Project\\Tiketing_1\\backend\\Ticketing.API\\Ticketing.API.csproj",
       "packagesPath": "C:\\Users\\upris\\.nuget\\packages\\",
-      "outputPath": "D:\\Project\\Tiketing_1\\backend\\ticketing.API\\obj\\",
+      "outputPath": "D:\\Project\\Tiketing_1\\backend\\Ticketing.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

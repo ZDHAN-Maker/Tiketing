@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Ticketing.API.Data;
 using Ticketing.API.Interfaces;
 using Ticketing.API.Services;
+using Ticketing.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,7 +55,8 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IOrganizerService, OrganizerService>();
-
+builder.Services.AddScoped<IEventRepository, EventRepository>();
+builder.Services.AddScoped<IEventService, EventService>();
 var app = builder.Build();
 
 // ==========================================
