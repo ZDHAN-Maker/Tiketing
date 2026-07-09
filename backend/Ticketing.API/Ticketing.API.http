@@ -130,7 +130,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwid
   "logoUrl": "https://linkgambar.com/logo-budi-baru.png"
 }
 
-
+-------------------------------------------------------------------------------
 ### =========================================================================
 ### TAHAP 6: MANAJEMEN STAFF ORGANIZER (DIBANTU OLEH EVENT ORGANIZER)
 ### =========================================================================
@@ -276,7 +276,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwid
 Content-Type: application/json
 
 {
-  "eventId": 99,
+  "eventId": 7,
   "name": "Reguler Salah ID",
   "description": "Validasi gagal karena ID di Body berbeda dengan URL.",
   "price": 200000,
@@ -294,3 +294,27 @@ Content-Type: application/json
 GET {{baseUrl}}/api/events/7/ticket-types
 
 ###
+
+### =========================================================================
+### TAHAP 9: PUBLIKASI EVENT
+### =========================================================================
+
+### 22. EVENT ORGANIZER (Budi) MEMPUBLIKASIKAN EVENT
+# Endpoint untuk mengubah status event dari 'draft' menjadi 'published'.
+# Memerlukan token Authorization dari Organizer (Budi).
+# EventId yang digunakan adalah 7.
+
+POST {{baseUrl}}/api/events/7/publish
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGlAZXhhbXBsZS5jb20iLCJyb2xlIjoiRXZlbnRPcmdhbml6ZXIiLCJuYmYiOjE3ODM1NzM2ODQsImV4cCI6MTc4MzU3NDU4NCwiaWF0IjoxNzgzNTczNjg0LCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.9-Tmdxa5rM7f-JyTzGvj98GjIF3QoBTqdwY5AwdZN40
+Content-Type: application/json
+
+{
+  "notes": "Event Festival Musik 2026 siap dimulai, tiket sudah tersedia untuk dibeli."
+}
+
+### 23. VERIFIKASI HASIL PUBLIKASI (GET EVENT)
+# Mengecek apakah status event sudah berubah menjadi 'published'.
+# Asumsi Anda sudah memiliki endpoint GET /api/events/{id}
+
+GET {{baseUrl}}/api/events/7
+Content-Type: application/json

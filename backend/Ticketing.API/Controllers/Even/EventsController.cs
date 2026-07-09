@@ -1,3 +1,4 @@
+using System; // <--- INI SANGAT PENTING (Untuk mengatasi error Exception)
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Ticketing.API.DTOs;
@@ -6,7 +7,7 @@ using Ticketing.API.Interfaces;
 namespace Ticketing.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/events")]
     public class EventsController : ControllerBase
     {
         private readonly IEventService _eventService;
@@ -70,7 +71,7 @@ namespace Ticketing.API.Controllers
 
                 return BadRequest(new { Message = "Gagal mempublikasikan event." });
             }
-            catch (Exception ex)
+            catch (Exception ex) // <--- Sekarang tidak akan error karena System sudah di-import
             {
                 // Menangkap error jika event tidak ditemukan atau validasi gagal di Service
                 return BadRequest(new { Message = ex.Message });
