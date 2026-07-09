@@ -6,6 +6,7 @@ using Ticketing.API.Data;
 using Ticketing.API.Interfaces;
 using Ticketing.API.Services;
 using Ticketing.API.Repositories;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,12 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<TicketingDbContext>(options =>
     options.UseNpgsql(connectionString));
 
+// GABUNGKAN AddControllers dan AddJsonOptions di sini (Cukup panggil 1 kali saja)
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
 // ==========================================
 // 2. CONFIGURATION JWT AUTHENTICATION
 // ==========================================
@@ -33,7 +40,7 @@ builder.Services.AddAuthentication(options =>
 .AddJwtBearer(options =>
 {
     // FIX UTAMA: Hentikan .NET dari mengubah klaim token ("role", "nameid") menjadi URL panjang
-    options.MapInboundClaims = false; 
+    options.MapInboundClaims = false;
 
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -44,7 +51,7 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = jwtSettings.GetValue<string>("Issuer"),
         ValidAudience = jwtSettings.GetValue<string>("Audience"),
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!)),
-        
+
         // Sesuaikan dengan key yang ada di dalam payload JWT JSON Anda
         RoleClaimType = "role",
         NameClaimType = "unique_name"
@@ -70,7 +77,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // Urutan middleware tidak boleh tertukar
-app.UseAuthentication(); 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

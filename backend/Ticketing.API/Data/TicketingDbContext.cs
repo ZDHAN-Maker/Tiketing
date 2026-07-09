@@ -41,7 +41,29 @@ namespace Ticketing.API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            // Data Seeding untuk Kategori
+            modelBuilder.Entity<EventCategory>().HasData(
+                new EventCategory
+                {
+                    Id = 1,
+                    Name = "Konser Musik",
+                    Slug = "konser-musik",
+                    CreatedAt = DateTime.UtcNow
+                }
+            );
 
+            // Data Seeding untuk Venue
+            modelBuilder.Entity<Venue>().HasData(
+                new Venue
+                {
+                    Id = 1,
+                    Name = "Stadion Utama",
+                    Address = "Jl. Sudirman No 1",
+                    City = "Jakarta",
+                    Capacity = 50000,
+                    CreatedAt = DateTime.UtcNow
+                }
+            );
             // =========================================================================
             // KONFIGURASI RELASI (JOIN TABLE)
             // =========================================================================

@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "SdkBYnB9Ntk=",
+  "dgSpecHash": "94bT4SmFnv0=",
   "success": true,
   "projectFilePath": "D:\\Project\\Tiketing_1\\backend\\Ticketing.API\\Ticketing.API.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\upris\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\upris\\.nuget\\packages\\automapper\\16.2.0\\automapper.16.2.0.nupkg.sha512",
     "C:\\Users\\upris\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\upris\\.nuget\\packages\\bcrypt.net-next\\4.2.0\\bcrypt.net-next.4.2.0.nupkg.sha512",
     "C:\\Users\\upris\\.nuget\\packages\\dapper\\2.1.79\\dapper.2.1.79.nupkg.sha512",
@@ -69,9 +69,9 @@
   ],
   "logs": [
     {
-      "code": "NU1903",
+      "code": "NU1608",
       "level": "Warning",
-      "message": "Package 'AutoMapper' 12.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x",
+      "message": "Detected package version outside of dependency constraint: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 requires AutoMapper (= 12.0.1) but version AutoMapper 16.2.0 was resolved.",
       "projectPath": "D:\\Project\\Tiketing_1\\backend\\Ticketing.API\\Ticketing.API.csproj",
       "warningLevel": 1,
       "filePath": "D:\\Project\\Tiketing_1\\backend\\Ticketing.API\\Ticketing.API.csproj",
