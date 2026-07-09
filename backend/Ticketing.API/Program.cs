@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -6,26 +7,22 @@ using Ticketing.API.Data;
 using Ticketing.API.Interfaces;
 using Ticketing.API.Services;
 using Ticketing.API.Repositories;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // ==========================================
-// 1. REGISTRASI CONTROLLERS & SERVICES
+// 1. REGISTRASI CONTROLLERS & DB CONTEXT
 // ==========================================
-builder.Services.AddControllers();
-
-// Register DbContext menggunakan PostgreSQL
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<TicketingDbContext>(options =>
     options.UseNpgsql(connectionString));
 
-// GABUNGKAN AddControllers dan AddJsonOptions di sini (Cukup panggil 1 kali saja)
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     });
+
 // ==========================================
 // 2. CONFIGURATION JWT AUTHENTICATION
 // ==========================================
@@ -39,8 +36,7 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-    // FIX UTAMA: Hentikan .NET dari mengubah klaim token ("role", "nameid") menjadi URL panjang
-    options.MapInboundClaims = false;
+    options.MapInboundClaims = false; // Memastikan .NET tidak mengubah nama claim
 
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -52,7 +48,6 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = jwtSettings.GetValue<string>("Audience"),
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!)),
 
-        // Sesuaikan dengan key yang ada di dalam payload JWT JSON Anda
         RoleClaimType = "role",
         NameClaimType = "unique_name"
     };
@@ -66,6 +61,9 @@ builder.Services.AddScoped<IEventRepository, EventRepository>();
 builder.Services.AddScoped<IEventService, EventService>();
 builder.Services.AddScoped<ITicketTypeRepository, TicketTypeRepository>();
 builder.Services.AddScoped<ITicketTypeService, TicketTypeService>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+
 var app = builder.Build();
 
 // ==========================================
@@ -78,13 +76,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Urutan middleware tidak boleh tertukar
+// Urutan Middleware Wajib Seperti Ini
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-// Health Check Endpoint
 app.MapGet("/", () => Results.Ok(new { Message = "Ticketing.API is running smoothly" }));
 
 app.Run();

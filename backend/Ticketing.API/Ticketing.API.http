@@ -361,4 +361,75 @@ Content-Type: application/json
 GET {{baseUrl}}/api/events/search?Keyword=2026&CategoryId=1&StartDate=2026-08-01T00:00:00Z
 Content-Type: application/json
 
+
+### =========================================================================
+### TAHAP 11: PEMESANAN TIKET (CREATE ORDER)
+### =========================================================================
+# Endpoint ini menggunakan HTTP POST untuk membuat pesanan/transaksi baru.
+# Mengarah ke OrdersController yang sudah dibuat sebelumnya.
+
+### 29. MEMBUAT PESANAN TIKET BARU (SINGLE ITEM)
+# Skenario: Customer (UserId: 1) membeli 2 buah tiket dari tipe tiket tertentu (TicketTypeId: 1).
+
+POST {{baseUrl}}/api/v1/orders
+Content-Type: application/json
+# Authorization: Bearer {{token_customer}}  <-- Hapus komentar ini jika Anda sudah menerapkan JWT Auth
+
+{
+  "userId": 1,
+  "items": [
+    {
+      "ticketTypeId": 1,
+      "quantity": 2
+    }
+  ]
+}
+
+
+### 30. MEMBUAT PESANAN TIKET BARU (MULTIPLE ITEMS / BANYAK TIPE TIKET)
+# Skenario: Customer (UserId: 2) membeli beberapa jenis tiket sekaligus dalam 1 transaksi.
+# Misal: 2 tiket VIP (TicketTypeId: 1) dan 1 tiket Reguler (TicketTypeId: 2).
+
+POST {{baseUrl}}/api/v1/orders
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "items": [
+    {
+      "ticketTypeId": 1,
+      "quantity": 2
+    },
+    {
+      "ticketTypeId": 2,
+      "quantity": 1
+    }
+  ]
+}
+
+
+### 31. UJI VALIDASI: MEMBUAT PESANAN DENGAN DATA TIDAK VALID (BAD REQUEST)
+# Skenario: Menguji validasi DTO. Kuantitas 0 (seharusnya error karena minimal 1).
+
+POST {{baseUrl}}/api/v1/orders
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "items": [
+    {
+      "ticketTypeId": 1,
+      "quantity": 0
+    }
+  ]
+}
+
+
+### 32. MELIHAT DETAIL PESANAN BERDASARKAN ID (GET ORDER BY ID)
+# Endpoint ini adalah target dari "CreatedAtAction" saat order berhasil dibuat (201 Created).
+# Ganti angka 1 di ujung URL dengan ID pesanan yang berhasil dibuat dari endpoint di atas.
+
+GET {{baseUrl}}/api/v1/orders/1
+Content-Type: application/json
+
 ### =========================================================================

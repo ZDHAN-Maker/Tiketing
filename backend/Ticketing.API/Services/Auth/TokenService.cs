@@ -23,18 +23,17 @@ namespace Ticketing.API.Services
         {
             var jwtSettings = _config.GetSection("JwtSettings");
             var secretKey = jwtSettings.GetValue<string>("Secret");
-
             var claims = new List<Claim>
             {
-                new(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new(ClaimTypes.Name, user.Name),
-                new(ClaimTypes.Email, user.Email)
+                new("nameid", user.Id.ToString()),
+                new("unique_name", user.Name),
+                new("email", user.Email)
             };
 
-            // Masukkan semua Role yang dimiliki user ke dalam Claim JWT
+            // PERBAIKAN: Gunakan "role" secara eksplisit
             foreach (var userRole in user.UserRoles)
             {
-                claims.Add(new Claim(ClaimTypes.Role, userRole.Role.Name));
+                claims.Add(new Claim("role", userRole.Role.Name));
             }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!));
