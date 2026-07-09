@@ -503,58 +503,6 @@ Content-Type: application/json
 
 
 ### =========================================================================
-### TAHAP 13: PENERBITAN E-TICKET (E-TICKET ISSUANCE)
-### =========================================================================
-# Endpoint ini menggunakan HTTP POST dan GET untuk mengelola siklus hidup e-ticket.
-# Mengarah ke TicketsController yang menangani generasi kode unik dan QR Code.
-
-### 38. MENERBITKAN E-TICKET BARU (ISSUE E-TICKET - SUCCESS)
-# Skenario: Setelah pembayaran sukses divalidasi pada langkah 35, sistem (atau worker)
-# memicu fungsi ini untuk menerbitkan e-ticket resmi beserta QR Code-nya.
-# Menggunakan data OrderId 1 yang sudah dibayar.
-
-POST {{baseUrl}}/api/v1/tickets
-Content-Type: application/json
-# Authorization: Bearer {{token_system}} <-- Jika menggunakan Client Credentials Token untuk internal service
-
-{
-  "orderId": 1,
-  "orderItemId": 12,
-  "userId": 5,
-  "seatId": 42
-}
-
-
-### 39. UJI VALIDASI: MENERBITKAN E-TICKET TANPA DATA LENGKAP (BAD REQUEST)
-# Skenario: Menguji validasi DTO ketika payload kosong atau tidak memenuhi syarat (contoh: request null).
-
-POST {{baseUrl}}/api/v1/tickets
-Content-Type: application/json
-
-{
-  // Mengirim objek kosong untuk memicu return BadRequest pada controller
-}
-
-
-### 40. MELIHAT DATA E-TICKET BERDASARKAN ID TIKET (GET TICKET BY ID)
-# Skenario: Menampilkan detail tiket tertentu beserta status validitas dan QrHash.
-# Biasanya dipanggil oleh frontend untuk menampilkan halaman detail tiket ke user.
-# Ganti angka 1 di ujung URL dengan ID tiket yang didapatkan dari response langkah 38.
-
-GET {{baseUrl}}/api/v1/tickets/1
-Content-Type: application/json
-# Authorization: Bearer {{token_customer}}
-
-
-### 41. MELIHAT TIKET BERDASARKAN USER ID (GET USER TICKETS - PENGEMBANGAN)
-# Skenario: Mengambil daftar semua e-ticket yang dimiliki oleh customer tertentu untuk halaman "My Tickets".
-# Catatan: Endpoint ini bisa ditambahkan pada TicketsController Anda ke depannya.
-
-GET {{baseUrl}}/api/v1/tickets/user/5
-Content-Type: application/json
-# Authorization: Bearer {{token_customer}}
-
-### =========================================================================
 ### TAHAP 13: PENERBITAN DAN MANAGEMENT E-TICKET (E-TICKET MANAGEMENT)
 ### =========================================================================
 # File ini digunakan untuk menguji siklus hidup E-Ticket dari penerbitan hingga pencarian.
@@ -569,9 +517,9 @@ Content-Type: application/json
 
 {
   "orderId": 1,
-  "orderItemId": 12,
-  "userId": 5,
-  "seatId": 42
+  "orderItemId": 1,
+  "userId": 2,
+  "seatId": null  
 }
 
 
@@ -595,7 +543,7 @@ Content-Type: application/json
 # Ganti angka 1 di akhir URL dengan ID tiket yang sukses digenerate dari langkah 38.
 # Ekspektasi: Status 200 OK beserta data lengkap tiket dan string QR Code-nya.
 
-GET {{baseUrl}}/api/v1/tickets/1
+GET {{baseUrl}}/api/v1/tickets/10
 Content-Type: application/json
 # Authorization: Bearer {{token_customer}}
 
@@ -613,6 +561,86 @@ Content-Type: application/json
 # Endpoint ini digunakan pada halaman "Tiket Saya" / "My Tickets" di sisi aplikasi customer.
 # Ekspektasi: Status 200 OK dengan format Array JSON.
 
-GET {{baseUrl}}/api/v1/tickets/user/5
+GET {{baseUrl}}/api/v1/tickets/user/2
 Content-Type: application/json
 # Authorization: Bearer {{token_customer}}
+
+
+### =========================================================================
+### TAHAP 14: TESTING CHECK-IN EVENT (GATE OFFICER SCAN)
+### =========================================================================
+
+
+
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "officer.gordon@ticketapp.com",
+  "password": "AdminBesar123!"
+}
+
+###
+
+POST {{baseUrl}}/api/v1/tickets
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0IiwidW5pcXVlX25hbWUiOiJHYXRlIE9mZmljZXIiLCJlbWFpbCI6Im9mZmljZXIuZ29yZG9uQHRpY2tldGFwcC5jb20iLCJuYmYiOjE3ODM1OTEwMDIsImV4cCI6MTc4MzU5MTkwMiwiaWF0IjoxNzgzNTkxMDAyLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.EKeanWp6Q4KVEqiiyu4Vs10lTfc2h4mRvXCuhE8h0mg
+
+{
+  "orderId": 1,
+  "orderItemId": 1,
+  "userId": 5,
+  "seatId": 2,
+  "ticketCode": "TKT-1-1-A1B2C3D4",
+  "status": "Valid"
+}
+
+### 1. SCAN TIKET BERHASIL (CHECK-IN SUCCESS)
+# Skenario: Gate Officer melakukan scan QR Code tiket yang valid dan belum pernah digunakan.
+# Ekspektasi: 200 OK, status tiket berubah jadi 'Checked In', dan record check-in tersimpan.
+POST {{baseUrl}}/api/CheckIn/scan
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0IiwidW5pcXVlX25hbWUiOiJHYXRlIE9mZmljZXIiLCJlbWFpbCI6Im9mZmljZXIuZ29yZG9uQHRpY2tldGFwcC5jb20iLCJuYmYiOjE3ODM1OTEwMDIsImV4cCI6MTc4MzU5MTkwMiwiaWF0IjoxNzgzNTkxMDAyLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.EKeanWp6Q4KVEqiiyu4Vs10lTfc2h4mRvXCuhE8h0mg
+
+{
+  "ticketCode": "ORD-20260709-001",
+  "gateNumber": "Gate A3"
+}
+
+
+### 2. UJI VALIDASI: TIKET SUDAH DIGUNAKAN / TIDAK VALID (BAD REQUEST)
+# Skenario: Scan tiket yang sama untuk kedua kalinya atau memasukkan code asal.
+# Ekspektasi: 400 Bad Request karena ditolak oleh Service (IsSuccess = false).
+POST {{baseUrl}}/api/CheckIn/scan
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0IiwidW5pcXVlX25hbWUiOiJHYXRlIE9mZmljZXIiLCJlbWFpbCI6Im9mZmljZXIuZ29yZG9uQHRpY2tldGFwcC5jb20iLCJuYmYiOjE3ODM1ODg2NzEsImV4cCI6MTc4MzU4OTU3MSwiaWF0IjoxNzgzNTg4NjcxLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.YTYvXvra9ggTWRRhQXGPGLR6tAFgPo4EvKtFA9XISQc
+
+{
+  "ticketCode": "TKT-1-1-A1B2C3D4",
+  "gateNumber": "Gate A3"
+}
+
+
+### 3. UJI VALIDASI: DATA REQUEST TIDAK LENGKAP (BAD REQUEST)
+# Skenario: Mengirim data kosong untuk menguji ModelState.IsValid.
+# Ekspektasi: 400 Bad Request dengan detail error structural.
+POST {{baseUrl}}/api/CheckIn/scan
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0IiwidW5pcXVlX25hbWUiOiJHYXRlIE9mZmljZXIiLCJlbWFpbCI6Im9mZmljZXIuZ29yZG9uQHRpY2tldGFwcC5jb20iLCJuYmYiOjE3ODM1ODg2NzEsImV4cCI6MTc4MzU4OTU3MSwiaWF0IjoxNzgzNTg4NjcxLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.YTYvXvra9ggTWRRhQXGPGLR6tAFgPo4EvKtFA9XISQc
+
+{
+  "ticketCode": ""
+}
+
+
+### 4. UJI VALIDASI: TANPA TOKEN / TOKEN EXPIRED (UNAUTHORIZED)
+# Skenario: Mencoba scan tanpa menyertakan Bearer Token Gate Officer.
+# Ekspektasi: 401 Unauthorized langsung dari middleware ASP.NET Core.
+POST {{baseUrl}}/api/CheckIn/scan
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0IiwidW5pcXVlX25hbWUiOiJHYXRlIE9mZmljZXIiLCJlbWFpbCI6Im9mZmljZXIuZ29yZG9uQHRpY2tldGFwcC5jb20iLCJuYmYiOjE3ODM1ODgxOTgsImV4cCI6MTc4MzU4OTA5OCwiaWF0IjoxNzgzNTg4MTk4LCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.8dtOeZk4sy8PVW7oUASpcpIgvlYEs7Sxhe7zVRyPByo
+
+{
+  "ticketCode": "TKT-1-1-A1B2C3D4",
+  "gateNumber": "Gate A3"
+}

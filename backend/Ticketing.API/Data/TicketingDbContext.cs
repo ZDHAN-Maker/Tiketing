@@ -80,7 +80,8 @@ namespace Ticketing.API.Data
             modelBuilder.Entity<Role>().HasData(
                 new Role { Id = 1, Name = "SuperAdmin" },
                 new Role { Id = 2, Name = "EventOrganizer" },
-                new Role { Id = 3, Name = "Customer" }
+                new Role { Id = 3, Name = "Customer" },
+                new Role { Id = 4, Name = "GateOfficer" }
             );
 
             // 2. Seed Akun Super Admin Default
@@ -97,9 +98,24 @@ namespace Ticketing.API.Data
                     Password = hashedAdminPassword,
                     Phone = "081111111111",
                     IsActive = true
+                }, new User
+                {
+                    Id = 4,
+                    Name = "Gate Officer",
+                    Email = "officer.gordon@ticketapp.com",
+                    Password = hashedAdminPassword,
+                    Phone = "082222222222",
+                    IsActive = true
+                }, new User
+                {
+                    Id = 5,
+                    Name = "Budi Setiawan",
+                    Email = "budi.customer@gmail.com",
+                    Password = hashedAdminPassword,
+                    Phone = "083333333333",
+                    IsActive = true
                 }
             );
-
             // 3. Pasangkan User Admin Utama (Id 1) dengan Role SuperAdmin (Id 1)
             modelBuilder.Entity<UserRole>().HasData(
                 new UserRole { UserId = 1, RoleId = 1 }

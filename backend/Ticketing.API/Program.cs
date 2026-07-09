@@ -67,6 +67,8 @@ builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddScoped<ICheckInRepository, CheckInRepository>();
+builder.Services.AddScoped<ICheckInService, CheckInService>();
 var app = builder.Build();
 
 // ==========================================

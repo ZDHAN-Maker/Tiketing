@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore; // Pastikan namespace ini ada untuk Include dan ToListAsync
+using Microsoft.EntityFrameworkCore;
 using Ticketing.API.Data;
 using Ticketing.API.Entities;
 using Ticketing.API.Interfaces;
@@ -37,6 +37,24 @@ namespace Ticketing.API.Repositories
                 .Include(t => t.QrCodes)
                 .Where(t => t.UserId == userId)
                 .ToListAsync();
+        }
+
+        // ==========================================
+        // TAMBAHKAN DUA FUNGSI DI BAWAH INI UNTUK CHECK-IN
+        // ==========================================
+
+        public async Task<Ticket?> GetTicketByCodeAsync(string ticketCode)
+        {
+            // Mencari tiket berdasarkan string kode uniknya
+            return await _context.Tickets
+                .FirstOrDefaultAsync(t => t.TicketCode == ticketCode);
+        }
+
+        public async Task UpdateAsync(Ticket ticket)
+        {
+            // Memperbarui status tiket di database (misal dari 'valid' ke 'Checked In')
+            _context.Tickets.Update(ticket);
+            await _context.SaveChangesAsync();
         }
     }
 }

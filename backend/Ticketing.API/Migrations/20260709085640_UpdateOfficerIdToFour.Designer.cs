@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Ticketing.API.Data;
@@ -11,9 +12,11 @@ using Ticketing.API.Data;
 namespace Ticketing.API.Migrations
 {
     [DbContext(typeof(TicketingDbContext))]
-    partial class TicketingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260709085640_UpdateOfficerIdToFour")]
+    partial class UpdateOfficerIdToFour
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,7 +176,7 @@ namespace Ticketing.API.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2026, 7, 9, 9, 2, 24, 541, DateTimeKind.Utc).AddTicks(2123),
+                            CreatedAt = new DateTime(2026, 7, 9, 8, 56, 39, 901, DateTimeKind.Utc).AddTicks(2533),
                             Name = "Konser Musik",
                             Slug = "konser-musik"
                         });
@@ -573,30 +576,30 @@ namespace Ticketing.API.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2026, 7, 9, 9, 2, 24, 545, DateTimeKind.Utc).AddTicks(979),
+                            CreatedAt = new DateTime(2026, 7, 9, 8, 56, 39, 905, DateTimeKind.Utc).AddTicks(2607),
                             Name = "SuperAdmin",
-                            UpdatedAt = new DateTime(2026, 7, 9, 9, 2, 24, 545, DateTimeKind.Utc).AddTicks(980)
+                            UpdatedAt = new DateTime(2026, 7, 9, 8, 56, 39, 905, DateTimeKind.Utc).AddTicks(2608)
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedAt = new DateTime(2026, 7, 9, 9, 2, 24, 545, DateTimeKind.Utc).AddTicks(1753),
+                            CreatedAt = new DateTime(2026, 7, 9, 8, 56, 39, 905, DateTimeKind.Utc).AddTicks(3376),
                             Name = "EventOrganizer",
-                            UpdatedAt = new DateTime(2026, 7, 9, 9, 2, 24, 545, DateTimeKind.Utc).AddTicks(1754)
+                            UpdatedAt = new DateTime(2026, 7, 9, 8, 56, 39, 905, DateTimeKind.Utc).AddTicks(3377)
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedAt = new DateTime(2026, 7, 9, 9, 2, 24, 545, DateTimeKind.Utc).AddTicks(1756),
+                            CreatedAt = new DateTime(2026, 7, 9, 8, 56, 39, 905, DateTimeKind.Utc).AddTicks(3379),
                             Name = "Customer",
-                            UpdatedAt = new DateTime(2026, 7, 9, 9, 2, 24, 545, DateTimeKind.Utc).AddTicks(1757)
+                            UpdatedAt = new DateTime(2026, 7, 9, 8, 56, 39, 905, DateTimeKind.Utc).AddTicks(3379)
                         },
                         new
                         {
                             Id = 4L,
-                            CreatedAt = new DateTime(2026, 7, 9, 9, 2, 24, 545, DateTimeKind.Utc).AddTicks(1758),
+                            CreatedAt = new DateTime(2026, 7, 9, 8, 56, 39, 905, DateTimeKind.Utc).AddTicks(3380),
                             Name = "GateOfficer",
-                            UpdatedAt = new DateTime(2026, 7, 9, 9, 2, 24, 545, DateTimeKind.Utc).AddTicks(1758)
+                            UpdatedAt = new DateTime(2026, 7, 9, 8, 56, 39, 905, DateTimeKind.Utc).AddTicks(3381)
                         });
                 });
 
@@ -824,35 +827,24 @@ namespace Ticketing.API.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2026, 7, 9, 9, 2, 24, 778, DateTimeKind.Utc).AddTicks(5350),
+                            CreatedAt = new DateTime(2026, 7, 9, 8, 56, 40, 239, DateTimeKind.Utc).AddTicks(807),
                             Email = "superadmin@ticket.com",
                             IsActive = true,
                             Name = "Super Admin Utama",
                             Password = "$2a$11$abcdefghijklmnopqrstuuktGbqrT8QbkGjM98OkmV8Y.ltInGree",
                             Phone = "081111111111",
-                            UpdatedAt = new DateTime(2026, 7, 9, 9, 2, 24, 778, DateTimeKind.Utc).AddTicks(5354)
+                            UpdatedAt = new DateTime(2026, 7, 9, 8, 56, 40, 239, DateTimeKind.Utc).AddTicks(814)
                         },
                         new
                         {
                             Id = 4L,
-                            CreatedAt = new DateTime(2026, 7, 9, 9, 2, 24, 778, DateTimeKind.Utc).AddTicks(7468),
+                            CreatedAt = new DateTime(2026, 7, 9, 8, 56, 40, 239, DateTimeKind.Utc).AddTicks(2999),
                             Email = "officer.gordon@ticketapp.com",
                             IsActive = true,
                             Name = "Gate Officer",
                             Password = "$2a$11$abcdefghijklmnopqrstuuktGbqrT8QbkGjM98OkmV8Y.ltInGree",
-                            Phone = "082222222222",
-                            UpdatedAt = new DateTime(2026, 7, 9, 9, 2, 24, 778, DateTimeKind.Utc).AddTicks(7469)
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            CreatedAt = new DateTime(2026, 7, 9, 9, 2, 24, 778, DateTimeKind.Utc).AddTicks(7488),
-                            Email = "budi.customer@gmail.com",
-                            IsActive = true,
-                            Name = "Budi Setiawan",
-                            Password = "$2a$11$abcdefghijklmnopqrstuuktGbqrT8QbkGjM98OkmV8Y.ltInGree",
-                            Phone = "083333333333",
-                            UpdatedAt = new DateTime(2026, 7, 9, 9, 2, 24, 778, DateTimeKind.Utc).AddTicks(7489)
+                            Phone = "081111111112",
+                            UpdatedAt = new DateTime(2026, 7, 9, 8, 56, 40, 239, DateTimeKind.Utc).AddTicks(3000)
                         });
                 });
 
@@ -918,7 +910,7 @@ namespace Ticketing.API.Migrations
                             Address = "Jl. Sudirman No 1",
                             Capacity = 50000L,
                             City = "Jakarta",
-                            CreatedAt = new DateTime(2026, 7, 9, 9, 2, 24, 542, DateTimeKind.Utc).AddTicks(872),
+                            CreatedAt = new DateTime(2026, 7, 9, 8, 56, 39, 902, DateTimeKind.Utc).AddTicks(1468),
                             Name = "Stadion Utama"
                         });
                 });
