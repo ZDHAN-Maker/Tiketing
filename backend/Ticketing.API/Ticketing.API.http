@@ -180,7 +180,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwid
 # Gunakan Token milik BUDI (EventOrganizer) yang didapat dari langkah verifikasi role.
 # Asumsi: CategoryId 1 (misal: Kategori Konser) dan VenueId 1 (misal: Stadion) sudah tersedia di database (bisa melalui seeder).
 POST {{baseUrl}}/api/events
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGlAZXhhbXBsZS5jb20iLCJyb2xlIjoiRXZlbnRPcmdhbml6ZXIiLCJuYmYiOjE3ODM1MDI5MDMsImV4cCI6MTc4MzUwMzgwMywiaWF0IjoxNzgzNTAyOTAzLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.z8UYowKFHsGelzEZLBXI5xn4rT7dHU4N3H4QXb1xLJ8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGlAZXhhbXBsZS5jb20iLCJyb2xlIjoiRXZlbnRPcmdhbml6ZXIiLCJuYmYiOjE3ODM1Njg0OTIsImV4cCI6MTc4MzU2OTM5MiwiaWF0IjoxNzgzNTY4NDkyLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.rc6rie43Jl2wWmGyIZzGenTdjwFZB93WQADsbW9NG3I
 Content-Type: application/json
 
 {
@@ -200,7 +200,7 @@ Content-Type: application/json
 ### 16. EVENT ORGANIZER (Budi) MEMBUAT EVENT DENGAN VALIDASI GAGAL (TESTING)
 # Menguji validasi: EndTime dibuat lebih awal dari StartTime. Harus mengembalikan 400 BadRequest.
 POST {{baseUrl}}/api/events
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGlAZXhhbXBsZS5jb20iLCJyb2xlIjoiRXZlbnRPcmdhbml6ZXIiLCJuYmYiOjE3ODM1MDI5MDMsImV4cCI6MTc4MzUwMzgwMywiaWF0IjoxNzgzNTAyOTAzLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.z8UYowKFHsGelzEZLBXI5xn4rT7dHU4N3H4QXb1xLJ8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGlAZXhhbXBsZS5jb20iLCJyb2xlIjoiRXZlbnRPcmdhbml6ZXIiLCJuYmYiOjE3ODM1Njg0OTIsImV4cCI6MTc4MzU2OTM5MiwiaWF0IjoxNzgzNTY4NDkyLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.rc6rie43Jl2wWmGyIZzGenTdjwFZB93WQADsbW9NG3I
 Content-Type: application/json
 
 {
@@ -209,7 +209,7 @@ Content-Type: application/json
   "venueId": 1,
   "title": "Event Salah Jadwal",
   "description": "Contoh event dengan validasi jadwal gagal.",
-  "startTime": "2026-08-15T19:00:00Z",
+  "startTime": "2025-08-15T19:00:00Z",
   "endTime": "2026-08-10T23:30:00Z", 
   "status": "draft"
 }
@@ -219,6 +219,78 @@ Content-Type: application/json
 ### 17. LIHAT DETAIL EVENT BERDASARKAN ID
 # Endpoint ini bersifat publik (tanpa token) untuk menampilkan detail event ke calon pembeli tiket.
 # Asumsi: ID Event yang sukses dibuat pada langkah nomor 15 otomatis bernilai 1.
-GET {{baseUrl}}/api/events/1
+GET {{baseUrl}}/api/events/7
+
+###
+
+### =========================================================================
+### TAHAP 8: MANAJEMEN TIKET (TICKET TYPES & STOCK)
+### =========================================================================
+
+### 18. EVENT ORGANIZER (Budi) MEMBUAT JENIS TIKET FESTIVAL (TANPA KURSI)
+# Endpoint untuk membuat tipe tiket Festival (IsNumberedSeat = false).
+# Logic di Service akan otomatis membuat TicketStock dengan AvailableStock 1000.
+# Catatan: Asumsi EventId yang digunakan adalah 7 (sesuai URL Get Event di tahap sebelumnya).
+POST {{baseUrl}}/api/events/7/ticket-types
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGlAZXhhbXBsZS5jb20iLCJyb2xlIjoiRXZlbnRPcmdhbml6ZXIiLCJuYmYiOjE3ODM1Njg0OTIsImV4cCI6MTc4MzU2OTM5MiwiaWF0IjoxNzgzNTY4NDkyLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.rc6rie43Jl2wWmGyIZzGenTdjwFZB93WQADsbW9NG3I
+Content-Type: application/json
+
+{
+  "eventId": 7,
+  "name": "Festival (Standing)",
+  "description": "Area standing di depan panggung utama.",
+  "price": 500000,
+  "totalQuota": 1000,
+  "startSales": "2026-07-15T09:00:00Z",
+  "endSales": "2026-08-14T23:59:59Z",
+  "isNumberedSeat": false
+}
+
+###
+
+### 19. EVENT ORGANIZER (Budi) MEMBUAT JENIS TIKET VIP (NUMBERED SEAT)
+# Endpoint untuk membuat tipe tiket VIP (IsNumberedSeat = true).
+# Akan digunakan nanti sebagai dasar pembentukan SeatMap dan Seat.
+POST {{baseUrl}}/api/events/7/ticket-types
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGlAZXhhbXBsZS5jb20iLCJyb2xlIjoiRXZlbnRPcmdhbml6ZXIiLCJuYmYiOjE3ODM1Njg0OTIsImV4cCI6MTc4MzU2OTM5MiwiaWF0IjoxNzgzNTY4NDkyLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.rc6rie43Jl2wWmGyIZzGenTdjwFZB93WQADsbW9NG3I
+Content-Type: application/json
+
+{
+  "eventId": 7,
+  "name": "VIP",
+  "description": "Area duduk eksklusif dengan nomor kursi (Seat Plan).",
+  "price": 1500000,
+  "totalQuota": 100,
+  "startSales": "2026-07-15T09:00:00Z",
+  "endSales": "2026-08-14T23:59:59Z",
+  "isNumberedSeat": true
+}
+
+###
+
+### 20. EVENT ORGANIZER MEMBUAT TIKET DENGAN VALIDASI GAGAL (TESTING)
+# Menguji validasi keamanan di Controller: eventId di URL (7) tidak cocok dengan eventId di Body Request (99).
+# Harus mengembalikan status 400 BadRequest.
+POST {{baseUrl}}/api/events/7/ticket-types
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGlAZXhhbXBsZS5jb20iLCJyb2xlIjoiRXZlbnRPcmdhbml6ZXIiLCJuYmYiOjE3ODM1Njg0OTIsImV4cCI6MTc4MzU2OTM5MiwiaWF0IjoxNzgzNTY4NDkyLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.rc6rie43Jl2wWmGyIZzGenTdjwFZB93WQADsbW9NG3I
+Content-Type: application/json
+
+{
+  "eventId": 99,
+  "name": "Reguler Salah ID",
+  "description": "Validasi gagal karena ID di Body berbeda dengan URL.",
+  "price": 200000,
+  "totalQuota": 500,
+  "startSales": "2026-07-15T09:00:00Z",
+  "endSales": "2026-08-14T23:59:59Z",
+  "isNumberedSeat": false
+}
+
+###
+
+### 21. PELANGGAN MELIHAT DAFTAR JENIS TIKET BERDASARKAN EVENT ID
+# Endpoint publik (tanpa token) untuk melihat jenis tiket apa saja yang tersedia di Event ID 7.
+# Response akan mengembalikan list TicketType lengkap dengan AvailableStock dari TicketStock.
+GET {{baseUrl}}/api/events/7/ticket-types
 
 ###
