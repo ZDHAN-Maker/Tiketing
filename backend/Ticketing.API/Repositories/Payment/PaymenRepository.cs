@@ -8,7 +8,7 @@ namespace Ticketing.API.Repositories
 {
     public class PaymentRepository : IPaymentRepository
     {
-        private readonly TicketingDbContext _context; // Ganti dengan class DbContext spesifik Anda jika ada
+        private readonly TicketingDbContext _context; 
 
         public PaymentRepository(TicketingDbContext context)
         {
