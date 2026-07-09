@@ -9,5 +9,6 @@ namespace Ticketing.API.Interfaces
         Task<Event> CreateEventAsync(CreateEventDto createEventDto);
         Task<Event?> GetEventByIdAsync(long id);
         Task<bool> PublishEventAsync(long eventId, long organizerId, string? notes);
+        Task<IEnumerable<EventResponse>> SearchEventsAsync(EventSearchRequest searchParams);
     }
 }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Ticketing.API.DTOs;
@@ -52,18 +54,15 @@ namespace Ticketing.API.Services
 
         public async Task<bool> PublishEventAsync(long eventId, long organizerId, string? notes)
         {
-            // 1. Ambil data event
             var eventEntity = await _eventRepository.GetEventByIdAsync(eventId);
             if (eventEntity == null)
             {
                 throw new Exception("Event tidak ditemukan.");
             }
 
-            // 2. Ubah status event menjadi "published"
-            eventEntity.Status = "published"; // <--- PERBAIKAN DI SINI
-            eventEntity.UpdatedAt = DateTime.UtcNow; // <--- Update waktu perubahan
+            eventEntity.Status = "published"; 
+            eventEntity.UpdatedAt = DateTime.UtcNow;
 
-            // 3. Buat record untuk EventPublishLog
             var publishLog = new EventPublishLog
             {
                 EventId = eventId,
@@ -72,12 +71,29 @@ namespace Ticketing.API.Services
                 PublishedAt = DateTime.UtcNow
             };
 
-            // 4. Update data dan tambahkan log ke repository
             await _eventRepository.UpdateEventAsync(eventEntity);
             await _eventRepository.AddPublishLogAsync(publishLog);
 
-            // 5. Simpan perubahan ke database
             return await _eventRepository.SaveChangesAsync();
+        }
+
+        // KODE BARU TERGABUNG: Mapping hasil pencarian ke DTO
+        public async Task<IEnumerable<EventResponse>> SearchEventsAsync(EventSearchRequest searchParams)
+        {
+            var events = await _eventRepository.SearchEventsAsync(searchParams);
+
+            return events.Select(e => new EventResponse
+            {
+                Id = e.Id,
+                Title = e.Title,
+                Slug = e.Slug,
+                Description = e.Description,
+                PosterUrl = e.PosterUrl,
+                StartTime = e.StartTime,
+                EndTime = e.EndTime,
+                CategoryName = e.Category.Name,
+                // VenueName = e.Venue.Name // Sesuaikan dengan entity Venue
+            });
         }
     }
 }

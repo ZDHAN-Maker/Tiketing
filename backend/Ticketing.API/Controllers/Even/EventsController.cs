@@ -1,4 +1,4 @@
-using System; // <--- INI SANGAT PENTING (Untuk mengatasi error Exception)
+using System; 
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Ticketing.API.DTOs;
@@ -25,7 +25,6 @@ namespace Ticketing.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            // Aturan bisnis tambahan, misal EndTime harus setelah StartTime
             if (createEventDto.EndTime <= createEventDto.StartTime)
             {
                 return BadRequest(new { message = "EndTime must be greater than StartTime." });
@@ -33,8 +32,20 @@ namespace Ticketing.API.Controllers
 
             var createdEvent = await _eventService.CreateEventAsync(createEventDto);
 
-            // Mengikuti kaidah RESTful, mengembalikan 201 Created beserta data
             return CreatedAtAction(nameof(GetEventById), new { id = createdEvent.Id }, createdEvent);
+        }
+
+        // Route-nya akan menjadi: GET /api/events/search?Keyword=xyz&CategoryId=1
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchEvents([FromQuery] EventSearchRequest searchParams)
+        {
+            var result = await _eventService.SearchEventsAsync(searchParams);
+            
+            return Ok(new 
+            {
+                Message = "Events retrieved successfully",
+                Data = result
+            });
         }
 
         [HttpGet("{id}")]
@@ -49,15 +60,12 @@ namespace Ticketing.API.Controllers
             return Ok(eventData);
         }
 
-        // Endpoint: POST /api/events/{id}/publish
         [HttpPost("{id}/publish")]
         public async Task<IActionResult> PublishEvent(long id, [FromBody] PublishEventRequestDto request)
         {
             try
             {
-                // Dalam skenario aslinya, ambil 'organizerId' dari token JWT user yang sedang login.
-                // Misal: var organizerId = long.Parse(User.FindFirst("id").Value);
-                long currentOrganizerId = 1; // Contoh Hardcode ID Organizer
+                long currentOrganizerId = 1; 
 
                 var result = await _eventService.PublishEventAsync(id, currentOrganizerId, request.Notes);
 
@@ -71,9 +79,8 @@ namespace Ticketing.API.Controllers
 
                 return BadRequest(new { Message = "Gagal mempublikasikan event." });
             }
-            catch (Exception ex) // <--- Sekarang tidak akan error karena System sudah di-import
+            catch (Exception ex)
             {
-                // Menangkap error jika event tidak ditemukan atau validasi gagal di Service
                 return BadRequest(new { Message = ex.Message });
             }
         }

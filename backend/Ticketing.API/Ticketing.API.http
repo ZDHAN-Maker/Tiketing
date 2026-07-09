@@ -318,3 +318,47 @@ Content-Type: application/json
 
 GET {{baseUrl}}/api/events/7
 Content-Type: application/json
+
+### =========================================================================
+### TAHAP 10: PENCARIAN EVENT (CUSTOMER)
+### =========================================================================
+# Endpoint ini menggunakan HTTP GET dengan query parameters.
+# Hanya event dengan status 'published' dan belum dihapus (DeletedAt == null) yang akan tampil.
+
+### 24. PENCARIAN SEMUA EVENT (TANPA FILTER)
+# Akan menampilkan semua event yang berstatus 'published' diurutkan berdasarkan waktu mulai terdekat.
+
+GET {{baseUrl}}/api/events/search
+Content-Type: application/json
+
+
+### 25. PENCARIAN EVENT BERDASARKAN KATA KUNCI (KEYWORD)
+# Mencari event yang judul atau deskripsinya mengandung kata "festival" atau "musik".
+
+GET {{baseUrl}}/api/events/search?Keyword=festival
+Content-Type: application/json
+
+
+### 26. PENCARIAN EVENT BERDASARKAN KATEGORI
+# Mencari event dengan CategoryId tertentu (Misal: 1 untuk Konser Musik).
+
+GET {{baseUrl}}/api/events/search?CategoryId=1
+Content-Type: application/json
+
+
+### 27. PENCARIAN EVENT BERDASARKAN RENTANG TANGGAL (DATE RANGE)
+# Mencari event yang dimulai pada atau setelah StartDate, dan pada atau sebelum EndDate.
+# Format tanggal menggunakan standar ISO 8601 (YYYY-MM-DDTHH:mm:ssZ).
+
+GET {{baseUrl}}/api/events/search?StartDate=2026-08-01T00:00:00Z&EndDate=2026-12-31T23:59:59Z
+Content-Type: application/json
+
+
+### 28. PENCARIAN KOMBINASI (KATA KUNCI, KATEGORI, DAN TANGGAL)
+# Customer memfilter pencarian yang sangat spesifik.
+# Misal: Mencari kata "2026" di kategori 1 yang dimulai setelah tanggal 1 Agustus 2026.
+
+GET {{baseUrl}}/api/events/search?Keyword=2026&CategoryId=1&StartDate=2026-08-01T00:00:00Z
+Content-Type: application/json
+
+### =========================================================================
