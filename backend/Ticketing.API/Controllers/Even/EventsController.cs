@@ -47,5 +47,34 @@ namespace Ticketing.API.Controllers
 
             return Ok(eventData);
         }
+
+        // Endpoint: POST /api/events/{id}/publish
+        [HttpPost("{id}/publish")]
+        public async Task<IActionResult> PublishEvent(long id, [FromBody] PublishEventRequestDto request)
+        {
+            try
+            {
+                // Dalam skenario aslinya, ambil 'organizerId' dari token JWT user yang sedang login.
+                // Misal: var organizerId = long.Parse(User.FindFirst("id").Value);
+                long currentOrganizerId = 1; // Contoh Hardcode ID Organizer
+
+                var result = await _eventService.PublishEventAsync(id, currentOrganizerId, request.Notes);
+
+                if (result)
+                {
+                    return Ok(new
+                    {
+                        Message = "Event berhasil dipublikasikan dan sekarang dapat dilihat oleh customer."
+                    });
+                }
+
+                return BadRequest(new { Message = "Gagal mempublikasikan event." });
+            }
+            catch (Exception ex)
+            {
+                // Menangkap error jika event tidak ditemukan atau validasi gagal di Service
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
     }
 }

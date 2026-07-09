@@ -24,7 +24,7 @@ namespace Ticketing.API.Services
                 CategoryId = dto.CategoryId,
                 VenueId = dto.VenueId,
                 Title = dto.Title,
-                Slug = GenerateSlug(dto.Title), // Logika bisnis: Generate Slug dari Title
+                Slug = GenerateSlug(dto.Title),
                 Description = dto.Description,
                 PosterUrl = dto.PosterUrl,
                 StartTime = dto.StartTime,
@@ -42,13 +42,42 @@ namespace Ticketing.API.Services
             return await _eventRepository.GetEventByIdAsync(id);
         }
 
-        // Helper untuk membuat URL-friendly slug
         private string GenerateSlug(string title)
         {
             string slug = title.ToLowerInvariant();
-            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", ""); 
-            slug = Regex.Replace(slug, @"\s+", "-").Trim('-'); 
-            return $"{slug}-{Guid.NewGuid().ToString().Substring(0, 6)}"; // Unik ID
+            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
+            slug = Regex.Replace(slug, @"\s+", "-").Trim('-');
+            return $"{slug}-{Guid.NewGuid().ToString().Substring(0, 6)}";
+        }
+
+        public async Task<bool> PublishEventAsync(long eventId, long organizerId, string? notes)
+        {
+            // 1. Ambil data event
+            var eventEntity = await _eventRepository.GetEventByIdAsync(eventId);
+            if (eventEntity == null)
+            {
+                throw new Exception("Event tidak ditemukan.");
+            }
+
+            // 2. Ubah status event menjadi "published"
+            eventEntity.Status = "published"; // <--- PERBAIKAN DI SINI
+            eventEntity.UpdatedAt = DateTime.UtcNow; // <--- Update waktu perubahan
+
+            // 3. Buat record untuk EventPublishLog
+            var publishLog = new EventPublishLog
+            {
+                EventId = eventId,
+                PublishedBy = organizerId,
+                Notes = notes,
+                PublishedAt = DateTime.UtcNow
+            };
+
+            // 4. Update data dan tambahkan log ke repository
+            await _eventRepository.UpdateEventAsync(eventEntity);
+            await _eventRepository.AddPublishLogAsync(publishLog);
+
+            // 5. Simpan perubahan ke database
+            return await _eventRepository.SaveChangesAsync();
         }
     }
 }

@@ -1,7 +1,7 @@
 
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Ticketing.API.Data; // Asumsikan ApplicationDbContext ada di sini
+using Ticketing.API.Data;
 using Ticketing.API.Entities;
 using Ticketing.API.Interfaces;
 
@@ -29,6 +29,21 @@ namespace Ticketing.API.Repositories
                 .Include(e => e.Category)
                 .Include(e => e.Venue)
                 .FirstOrDefaultAsync(e => e.Id == id);
+        }
+        public Task UpdateEventAsync(Event eventEntity)
+        {
+            _context.Events.Update(eventEntity);
+            return Task.CompletedTask;
+        }
+
+        public async Task AddPublishLogAsync(EventPublishLog log)
+        {
+            await _context.EventPublishLogs.AddAsync(log);
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

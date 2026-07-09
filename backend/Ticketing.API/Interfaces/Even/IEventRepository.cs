@@ -7,5 +7,9 @@ namespace Ticketing.API.Interfaces
     {
         Task<Event> AddEventAsync(Event newEvent);
         Task<Event?> GetEventByIdAsync(long id);
+        Task UpdateEventAsync(Event eventEntity);
+        Task AddPublishLogAsync(EventPublishLog log);
+        Task<bool> SaveChangesAsync();
     }
+
 }
