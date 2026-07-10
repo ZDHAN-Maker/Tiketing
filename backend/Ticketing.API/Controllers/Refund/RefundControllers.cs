@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization; // Tambahan untuk proteksi Role
 using Microsoft.AspNetCore.Mvc;
 using Ticketing.API.DTOs;
 using Ticketing.API.Interfaces;
@@ -18,8 +19,9 @@ namespace Ticketing.API.Controllers
         }
 
         // GET: api/refunds
-        // Endpoint untuk Finance & CS melihat daftar pengajuan
+        // Endpoint untuk SuperAdmin & EventOrganizer melihat daftar pengajuan
         [HttpGet]
+        [Authorize(Roles = "SuperAdmin,EventOrganizer")]
         public async Task<IActionResult> GetAllRefunds()
         {
             var refunds = await _refundService.GetAllRefundsAsync();
@@ -27,7 +29,9 @@ namespace Ticketing.API.Controllers
         }
 
         // GET: api/refunds/{id}
+        // Endpoint untuk pihak internal atau Customer terkait melihat detail refund
         [HttpGet("{id}")]
+        [Authorize(Roles = "SuperAdmin,EventOrganizer,Customer")]
         public async Task<IActionResult> GetRefundById(long id)
         {
             var refund = await _refundService.GetRefundByIdAsync(id);
@@ -37,20 +41,29 @@ namespace Ticketing.API.Controllers
         }
 
         // POST: api/refunds
-        // Endpoint untuk Customer mengajukan refund
+        // Endpoint khusus Customer untuk mengajukan refund
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> CreateRefundRequest([FromBody] CreateRefundRequestDto request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var result = await _refundService.CreateRefundRequestAsync(request);
-            
-            return CreatedAtAction(nameof(GetRefundById), new { id = result.Id }, result);
+            try
+            {
+                var result = await _refundService.CreateRefundRequestAsync(request);
+                return CreatedAtAction(nameof(GetRefundById), new { id = result.Id }, result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                // Mencegah error 500 akibat foreign key constraint jika OrderId/UserId ngawur
+                return BadRequest(new { Message = ex.Message });
+            }
         }
 
         // PATCH: api/refunds/{id}/status
-        // Endpoint untuk Finance mengupdate status (approved/rejected/processing)
+        // Endpoint untuk SuperAdmin & EventOrganizer mengupdate status (approved/rejected)
         [HttpPatch("{id}/status")]
+        [Authorize(Roles = "SuperAdmin,EventOrganizer")]
         public async Task<IActionResult> UpdateRefundStatus(long id, [FromBody] UpdateRefundStatusDto request)
         {
             try
@@ -58,7 +71,7 @@ namespace Ticketing.API.Controllers
                 var result = await _refundService.ProcessRefundStatusAsync(id, request);
                 return Ok(result);
             }
-            catch (System.Collections.Generic.KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 return NotFound(new { Message = ex.Message });
             }

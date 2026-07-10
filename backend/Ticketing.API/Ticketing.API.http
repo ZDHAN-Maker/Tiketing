@@ -686,15 +686,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2Iiwid
 # Ekspektasi: 200 OK. Mengembalikan array berisi seluruh data pengajuan refund.
 GET {{baseUrl}}/api/refunds
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGkuc2FudG9zb0BleGFtcGxlLmNvbSIsInJvbGUiOiJGcmFuY2UiLCJuYmYiOjE3ODM2OTIwOTEsImV4cCI6MTc4MzY5Mjk5MSwiaWF0IjoxNzgzNjkyMDkxLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.7g
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJTdXBlciBBZG1pbiBVdGFtYSIsImVtYWlsIjoic3VwZXJhZG1pbkB0aWNrZXQuY29tIiwicm9sZSI6IlN1cGVyQWRtaW4iLCJuYmYiOjE3ODM2OTIzMTEsImV4cCI6MTc4MzY5MzIxMSwiaWF0IjoxNzgzNjkyMzExLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.LPMDXou809_hbuO1lGcz2QKPY-xGyEmuAOJhDNOJP6g
 
 
 ### 4. GET DETAIL REFUND BERDASARKAN ID (OK)
 # Skenario: Admin mengeklik salah satu pengajuan untuk melihat detailnya secara spesifik.
 # Ekspektasi: 200 OK. Mengembalikan detail dari Refund ID 1.
-GET {{baseUrl}}/api/refunds/1
+GET {{baseUrl}}/api/refunds/3
 Accept: application/json
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2IiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGkxMjNAZXhhbXBsZS5jb20iLCJyb2xlIjoiQ3VzdG9tZXIiLCJuYmYiOjE3ODM2OTIwOTEsImV4cCI6MTc4MzY5Mjk5MSwiaWF0IjoxNzgzNjkyMDkxLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.Js62bxe32p6lOqVYSTOz_pKYFkx83YrnmQX4iEy9fK0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJTdXBlciBBZG1pbiBVdGFtYSIsImVtYWlsIjoic3VwZXJhZG1pbkB0aWNrZXQuY29tIiwicm9sZSI6IlN1cGVyQWRtaW4iLCJuYmYiOjE3ODM2OTIzMTEsImV4cCI6MTc4MzY5MzIxMSwiaWF0IjoxNzgzNjkyMzExLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.LPMDXou809_hbuO1lGcz2QKPY-xGyEmuAOJhDNOJP6g
 
 
 ### 5. GET DETAIL REFUND ID TIDAK DITEMUKAN (NOT FOUND)
@@ -702,32 +702,32 @@ Accept: application/json
 # Ekspektasi: 404 Not Found dengan pesan "Refund request not found."
 GET {{baseUrl}}/api/refunds/9999
 Accept: application/json
-# Authorization: Bearer {{financeToken}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJTdXBlciBBZG1pbiBVdGFtYSIsImVtYWlsIjoic3VwZXJhZG1pbkB0aWNrZXQuY29tIiwicm9sZSI6IlN1cGVyQWRtaW4iLCJuYmYiOjE3ODM2OTIzMTEsImV4cCI6MTc4MzY5MzIxMSwiaWF0IjoxNzgzNjkyMzExLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.LPMDXou809_hbuO1lGcz2QKPY-xGyEmuAOJhDNOJP6g
 
 
 ### 6. UPDATE STATUS REFUND - APPROVE (OK)
 # Skenario: Finance menyetujui pengajuan refund setelah verifikasi, merubah status jadi 'approved'.
 # Ekspektasi: 200 OK. Status berubah dan 'processedBy' terisi dengan ID staff Finance.
-PATCH {{baseUrl}}/api/refunds/1/status
+PATCH {{baseUrl}}/api/refunds/3/status
 Content-Type: application/json
-# Authorization: Bearer {{financeToken}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJTdXBlciBBZG1pbiBVdGFtYSIsImVtYWlsIjoic3VwZXJhZG1pbkB0aWNrZXQuY29tIiwicm9sZSI6IlN1cGVyQWRtaW4iLCJuYmYiOjE3ODM2OTIzMTEsImV4cCI6MTc4MzY5MzIxMSwiaWF0IjoxNzgzNjkyMzExLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.LPMDXou809_hbuO1lGcz2QKPY-xGyEmuAOJhDNOJP6g
 
 {
   "status": "approved",
-  "processedBy": 2
+  "processedBy": 1
 }
 
 
 ### 7. UPDATE STATUS REFUND - REJECTED (OK)
 # Skenario: Finance menolak pengajuan refund karena tidak memenuhi syarat ketentuan pembatalan.
 # Ekspektasi: 200 OK. Status berubah jadi 'rejected'.
-PATCH {{baseUrl}}/api/refunds/2/status
+PATCH {{baseUrl}}/api/refunds/3/status
 Content-Type: application/json
-# Authorization: Bearer {{financeToken}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJTdXBlciBBZG1pbiBVdGFtYSIsImVtYWlsIjoic3VwZXJhZG1pbkB0aWNrZXQuY29tIiwicm9sZSI6IlN1cGVyQWRtaW4iLCJuYmYiOjE3ODM2OTIzMTEsImV4cCI6MTc4MzY5MzIxMSwiaWF0IjoxNzgzNjkyMzExLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.LPMDXou809_hbuO1lGcz2QKPY-xGyEmuAOJhDNOJP6g
 
 {
   "status": "rejected",
-  "processedBy": 2
+  "processedBy": 1
 }
 
 
@@ -736,7 +736,7 @@ Content-Type: application/json
 # Ekspektasi: 404 Not Found karena ditolak oleh Service (KeyNotFoundException).
 PATCH {{baseUrl}}/api/refunds/9999/status
 Content-Type: application/json
-# Authorization: Bearer {{financeToken}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJTdXBlciBBZG1pbiBVdGFtYSIsImVtYWlsIjoic3VwZXJhZG1pbkB0aWNrZXQuY29tIiwicm9sZSI6IlN1cGVyQWRtaW4iLCJuYmYiOjE3ODM2OTIzMTEsImV4cCI6MTc4MzY5MzIxMSwiaWF0IjoxNzgzNjkyMzExLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.LPMDXou809_hbuO1lGcz2QKPY-xGyEmuAOJhDNOJP6g
 
 {
   "status": "processing",
