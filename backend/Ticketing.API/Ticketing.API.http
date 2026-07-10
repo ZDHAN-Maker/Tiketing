@@ -11,7 +11,7 @@ Content-Type: application/json
 
 {
   "name": "Budi Santoso",
-  "email": "budi@example.com",
+  "email": "budi123@example.com",
   "password": "PasswordSuperAman123!",
   "phone": "081234567890"
 }
@@ -24,7 +24,7 @@ POST {{baseUrl}}/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "budi@example.com",
+  "email": "budi123@example.com",
   "password": "PasswordSuperAman123!"
 }
 
@@ -473,7 +473,7 @@ Content-Type: application/json
 
 POST {{baseUrl}}/api/v1/payments/8/verify
 Content-Type: application/json
-# Authorization: Bearer {{token_finance}}  <-- Hapus komentar ini jika Anda sudah menerapkan JWT Auth
+# Authorization: Bearer {{token_finance}}  
 
 {
   "transactionId": "TRX-MIDTRANS-00192A",
@@ -590,7 +590,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0Iiwid
   "orderId": 1,
   "orderItemId": 1,
   "userId": 5,
-  "seatId": 2,
+  "seatId": 1,
   "ticketCode": "TKT-1-1-A1B2C3D4",
   "status": "Valid"
 }
@@ -603,7 +603,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0IiwidW5pcXVlX25hbWUiOiJHYXRlIE9mZmljZXIiLCJlbWFpbCI6Im9mZmljZXIuZ29yZG9uQHRpY2tldGFwcC5jb20iLCJuYmYiOjE3ODM1OTEwMDIsImV4cCI6MTc4MzU5MTkwMiwiaWF0IjoxNzgzNTkxMDAyLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.EKeanWp6Q4KVEqiiyu4Vs10lTfc2h4mRvXCuhE8h0mg
 
 {
-  "ticketCode": "ORD-20260709-001",
+  "ticketCode": "TKT-20260709-C062988A",
   "gateNumber": "Gate A3"
 }
 
@@ -613,7 +613,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0Iiwid
 # Ekspektasi: 400 Bad Request karena ditolak oleh Service (IsSuccess = false).
 POST {{baseUrl}}/api/CheckIn/scan
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0IiwidW5pcXVlX25hbWUiOiJHYXRlIE9mZmljZXIiLCJlbWFpbCI6Im9mZmljZXIuZ29yZG9uQHRpY2tldGFwcC5jb20iLCJuYmYiOjE3ODM1ODg2NzEsImV4cCI6MTc4MzU4OTU3MSwiaWF0IjoxNzgzNTg4NjcxLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.YTYvXvra9ggTWRRhQXGPGLR6tAFgPo4EvKtFA9XISQc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0IiwidW5pcXVlX25hbWUiOiJHYXRlIE9mZmljZXIiLCJlbWFpbCI6Im9mZmljZXIuZ29yZG9uQHRpY2tldGFwcC5jb20iLCJuYmYiOjE3ODM1OTEwMDIsImV4cCI6MTc4MzU5MTkwMiwiaWF0IjoxNzgzNTkxMDAyLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.EKeanWp6Q4KVEqiiyu4Vs10lTfc2h4mRvXCuhE8h0mg
 
 {
   "ticketCode": "TKT-1-1-A1B2C3D4",
@@ -626,7 +626,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0Iiwid
 # Ekspektasi: 400 Bad Request dengan detail error structural.
 POST {{baseUrl}}/api/CheckIn/scan
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0IiwidW5pcXVlX25hbWUiOiJHYXRlIE9mZmljZXIiLCJlbWFpbCI6Im9mZmljZXIuZ29yZG9uQHRpY2tldGFwcC5jb20iLCJuYmYiOjE3ODM1ODg2NzEsImV4cCI6MTc4MzU4OTU3MSwiaWF0IjoxNzgzNTg4NjcxLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.YTYvXvra9ggTWRRhQXGPGLR6tAFgPo4EvKtFA9XISQc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0IiwidW5pcXVlX25hbWUiOiJHYXRlIE9mZmljZXIiLCJlbWFpbCI6Im9mZmljZXIuZ29yZG9uQHRpY2tldGFwcC5jb20iLCJuYmYiOjE3ODM1OTEwMDIsImV4cCI6MTc4MzU5MTkwMiwiaWF0IjoxNzgzNTkxMDAyLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.EKeanWp6Q4KVEqiiyu4Vs10lTfc2h4mRvXCuhE8h0mg
 
 {
   "ticketCode": ""
@@ -638,9 +638,107 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0Iiwid
 # Ekspektasi: 401 Unauthorized langsung dari middleware ASP.NET Core.
 POST {{baseUrl}}/api/CheckIn/scan
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0IiwidW5pcXVlX25hbWUiOiJHYXRlIE9mZmljZXIiLCJlbWFpbCI6Im9mZmljZXIuZ29yZG9uQHRpY2tldGFwcC5jb20iLCJuYmYiOjE3ODM1ODgxOTgsImV4cCI6MTc4MzU4OTA5OCwiaWF0IjoxNzgzNTg4MTk4LCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.8dtOeZk4sy8PVW7oUASpcpIgvlYEs7Sxhe7zVRyPByo
+Authorization: Bearer 
 
 {
   "ticketCode": "TKT-1-1-A1B2C3D4",
   "gateNumber": "Gate A3"
+}
+
+### =========================================================================
+### TAHAP 15: TESTING REFUND & PEMBATALAN TRANSAKSI
+### =========================================================================
+
+
+
+### 1. UJI PENGAJUAN REFUND BERHASIL (CREATED)
+# Skenario: Customer mengajukan pembatalan tiket karena alasan tertentu (misal: acara diundur).
+# Ekspektasi: 201 Created. Data refund tersimpan dengan status default 'requested'.
+POST {{baseUrl}}/api/refunds
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2IiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGkxMjNAZXhhbXBsZS5jb20iLCJyb2xlIjoiQ3VzdG9tZXIiLCJuYmYiOjE3ODM2OTIwOTEsImV4cCI6MTc4MzY5Mjk5MSwiaWF0IjoxNzgzNjkyMDkxLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.Js62bxe32p6lOqVYSTOz_pKYFkx83YrnmQX4iEy9fK0
+
+{
+  "orderId": 2,
+  "userId": 5,
+  "amount": 250000.00,
+  "reason": "Jadwal event berubah, bentrok dengan jadwal penerbangan."
+}
+
+
+### 2. UJI VALIDASI: DATA PENGAJUAN TIDAK LENGKAP (BAD REQUEST)
+# Skenario: Customer mencoba mengajukan refund tanpa menyertakan 'reason' dan 'amount' = 0.
+# Ekspektasi: 400 Bad Request karena tertahan oleh validasi ModelState.
+POST {{baseUrl}}/api/refunds
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2IiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGkxMjNAZXhhbXBsZS5jb20iLCJyb2xlIjoiQ3VzdG9tZXIiLCJuYmYiOjE3ODM2OTIwOTEsImV4cCI6MTc4MzY5Mjk5MSwiaWF0IjoxNzgzNjkyMDkxLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.Js62bxe32p6lOqVYSTOz_pKYFkx83YrnmQX4iEy9fK0
+
+{
+  "orderId": 2,
+  "userId": 5,
+  "amount": 0,
+  "reason": ""
+}
+
+
+### 3. GET SEMUA DATA REFUND (OK)
+# Skenario: Admin Finance / Customer Service ingin melihat daftar semua pengajuan refund.
+# Ekspektasi: 200 OK. Mengembalikan array berisi seluruh data pengajuan refund.
+GET {{baseUrl}}/api/refunds
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGkuc2FudG9zb0BleGFtcGxlLmNvbSIsInJvbGUiOiJGcmFuY2UiLCJuYmYiOjE3ODM2OTIwOTEsImV4cCI6MTc4MzY5Mjk5MSwiaWF0IjoxNzgzNjkyMDkxLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.7g
+
+
+### 4. GET DETAIL REFUND BERDASARKAN ID (OK)
+# Skenario: Admin mengeklik salah satu pengajuan untuk melihat detailnya secara spesifik.
+# Ekspektasi: 200 OK. Mengembalikan detail dari Refund ID 1.
+GET {{baseUrl}}/api/refunds/1
+Accept: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2IiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGkxMjNAZXhhbXBsZS5jb20iLCJyb2xlIjoiQ3VzdG9tZXIiLCJuYmYiOjE3ODM2OTIwOTEsImV4cCI6MTc4MzY5Mjk5MSwiaWF0IjoxNzgzNjkyMDkxLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.Js62bxe32p6lOqVYSTOz_pKYFkx83YrnmQX4iEy9fK0
+
+
+### 5. GET DETAIL REFUND ID TIDAK DITEMUKAN (NOT FOUND)
+# Skenario: Mencari detail refund dengan ID yang tidak ada di database.
+# Ekspektasi: 404 Not Found dengan pesan "Refund request not found."
+GET {{baseUrl}}/api/refunds/9999
+Accept: application/json
+# Authorization: Bearer {{financeToken}}
+
+
+### 6. UPDATE STATUS REFUND - APPROVE (OK)
+# Skenario: Finance menyetujui pengajuan refund setelah verifikasi, merubah status jadi 'approved'.
+# Ekspektasi: 200 OK. Status berubah dan 'processedBy' terisi dengan ID staff Finance.
+PATCH {{baseUrl}}/api/refunds/1/status
+Content-Type: application/json
+# Authorization: Bearer {{financeToken}}
+
+{
+  "status": "approved",
+  "processedBy": 2
+}
+
+
+### 7. UPDATE STATUS REFUND - REJECTED (OK)
+# Skenario: Finance menolak pengajuan refund karena tidak memenuhi syarat ketentuan pembatalan.
+# Ekspektasi: 200 OK. Status berubah jadi 'rejected'.
+PATCH {{baseUrl}}/api/refunds/2/status
+Content-Type: application/json
+# Authorization: Bearer {{financeToken}}
+
+{
+  "status": "rejected",
+  "processedBy": 2
+}
+
+
+### 8. UJI UPDATE STATUS UNTUK ID YANG TIDAK ADA (NOT FOUND)
+# Skenario: Finance mencoba mengupdate status pada ID refund yang salah/tidak ada.
+# Ekspektasi: 404 Not Found karena ditolak oleh Service (KeyNotFoundException).
+PATCH {{baseUrl}}/api/refunds/9999/status
+Content-Type: application/json
+# Authorization: Bearer {{financeToken}}
+
+{
+  "status": "processing",
+  "processedBy": 2
 }
