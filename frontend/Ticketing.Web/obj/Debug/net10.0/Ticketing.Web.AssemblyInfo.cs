@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Ticketing.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c2e14e645248dbc7ea667a58c682dae0a3a54444")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7389cbd5df19241abda5438026a359f6afa0e274")]
 [assembly: System.Reflection.AssemblyProductAttribute("Ticketing.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Ticketing.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
