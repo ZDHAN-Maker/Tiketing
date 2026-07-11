@@ -13,5 +13,6 @@ namespace Ticketing.API.Interfaces
         Task AddPublishLogAsync(EventPublishLog log);
         Task<bool> SaveChangesAsync();
         Task<IEnumerable<Event>> SearchEventsAsync(EventSearchRequest searchParams);
+        Task<bool> ExistsAsync(long eventId);
     }
 }

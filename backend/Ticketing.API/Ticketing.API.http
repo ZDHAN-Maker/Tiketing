@@ -180,13 +180,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwid
 # Gunakan Token milik BUDI (EventOrganizer) yang didapat dari langkah verifikasi role.
 # Asumsi: CategoryId 1 (misal: Kategori Konser) dan VenueId 1 (misal: Stadion) sudah tersedia di database (bisa melalui seeder).
 POST {{baseUrl}}/api/events
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwidW5pcXVlX25hbWUiOiJCdWRpIFNhbnRvc28iLCJlbWFpbCI6ImJ1ZGlAZXhhbXBsZS5jb20iLCJyb2xlIjoiRXZlbnRPcmdhbml6ZXIiLCJuYmYiOjE3ODM1Njg0OTIsImV4cCI6MTc4MzU2OTM5MiwiaWF0IjoxNzgzNTY4NDkyLCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.rc6rie43Jl2wWmGyIZzGenTdjwFZB93WQADsbW9NG3I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJTdXBlciBBZG1pbiBVdGFtYSIsImVtYWlsIjoic3VwZXJhZG1pbkB0aWNrZXQuY29tIiwicm9sZSI6IlN1cGVyQWRtaW4iLCJuYmYiOjE3ODM3NTMwNjcsImV4cCI6MTc4Mzc1Mzk2NywiaWF0IjoxNzgzNzUzMDY3LCJpc3MiOiJUaWNrZXRpbmcuQVBJIiwiYXVkIjoiVGlja2V0aW5nLkJsYXpvckNsaWVudCJ9.r4eeXcstZsNfsm7LHMGDYXyLUm5pDOgH4gte7zysfxY
 Content-Type: application/json
 
 {
   "organizerId": 1,
-  "categoryId": 1,
-  "venueId": 1,
+  "categoryId": 2,
+  "venueId": 2,
   "title": "Konser Raya Sumatra 2026",
   "description": "Konser musik terbesar di Sumatra menampilkan artis-artis top ibu kota.",
   "posterUrl": "https://linkgambar.com/poster-konser-sumatra.png",
@@ -742,3 +742,112 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwid
   "status": "processing",
   "processedBy": 2
 }
+
+### =========================================================================
+### TAHAP 16: TESTING REVIEW & ULASAN EVENT
+### =========================================================================
+
+
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "wati@example.com",
+  "password": "PasswordStaff123!"
+}
+
+
+
+### 1. UJI TAMBAH REVIEW BERHASIL (CREATED)
+# Skenario: Customer (misal: Budi) memberikan ulasan dan rating 5 pada event yang telah dia ikuti.
+# Ekspektasi: 201 Created. Data review tersimpan ke database dan mengembalikan DTO response.
+POST {{baseUrl}}/api/reviews
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwidW5pcXVlX25hbWUiOiJXYXRpIFNldGlhd2F0aSIsImVtYWlsIjoid2F0aUBleGFtcGxlLmNvbSIsInJvbGUiOiJDdXN0b21lciIsIm5iZiI6MTc4Mzc1MzEzMSwiZXhwIjoxNzgzNzU0MDMxLCJpYXQiOjE3ODM3NTMxMzEsImlzcyI6IlRpY2tldGluZy5BUEkiLCJhdWQiOiJUaWNrZXRpbmcuQmxhem9yQ2xpZW50In0.PNnr8nHtkwOhxmZYbYek0m4llATRauQHJREMQv9Iaow
+
+{
+  "eventId": 3,
+  "rating": 5,
+  "comment": "Event yang sangat luar biasa! Organisasinya rapi dan pematerinya sangat interaktif."
+}
+
+
+### 2. UJI VALIDASI: RATING DI LUAR BATAS ATAU DATA KOSONG (BAD REQUEST)
+# Skenario: Customer mencoba memberikan rating lebih dari 5 (misal: 10) atau memberikan tipe data yang salah.
+# Ekspektasi: 400 Bad Request. Tertahan oleh validasi DataAnnotations (ModelState) pada CreateReviewDto.
+POST {{baseUrl}}/api/reviews
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwidW5pcXVlX25hbWUiOiJXYXRpIFNldGlhd2F0aSIsImVtYWlsIjoid2F0aUBleGFtcGxlLmNvbSIsInJvbGUiOiJDdXN0b21lciIsIm5iZiI6MTc4Mzc1MzEzMSwiZXhwIjoxNzgzNzU0MDMxLCJpYXQiOjE3ODM3NTMxMzEsImlzcyI6IlRpY2tldGluZy5BUEkiLCJhdWQiOiJUaWNrZXRpbmcuQmxhem9yQ2xpZW50In0.PNnr8nHtkwOhxmZYbYek0m4llATRauQHJREMQv9Iaow
+
+{
+  "eventId": 3,
+  "rating": 10,
+  "comment": "Ratingnya kelebihan nih!"
+}
+
+
+### 3. UJI VALIDASI: USER SUDAH PERNAH REVIEW EVENT YANG SAMA (BAD REQUEST)
+# Skenario: Customer mencoba mengirimkan ulasan untuk kedua kalinya pada Event ID yang sama.
+# Ekspektasi: 400 Bad Request. Ditolak oleh ReviewService dengan pesan "User sudah memberikan ulasan untuk event ini."
+POST {{baseUrl}}/api/reviews
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwidW5pcXVlX25hbWUiOiJXYXRpIFNldGlhd2F0aSIsImVtYWlsIjoid2F0aUBleGFtcGxlLmNvbSIsInJvbGUiOiJDdXN0b21lciIsIm5iZiI6MTc4Mzc1MzEzMSwiZXhwIjoxNzgzNzU0MDMxLCJpYXQiOjE3ODM3NTMxMzEsImlzcyI6IlRpY2tldGluZy5BUEkiLCJhdWQiOiJUaWNrZXRpbmcuQmxhem9yQ2xpZW50In0.PNnr8nHtkwOhxmZYbYek0m4llATRauQHJREMQv9Iaow
+
+{
+  "eventId": 3,
+  "rating": 4,
+  "comment": "Saya mau coba nulis review lagi untuk event yang sama."
+}
+
+
+### 4. GET SEMUA REVIEW BERDASARKAN EVENT ID (OK)
+# Skenario: Pengunjung website (Front-End) membuka halaman detail Event ID 1 dan sistem mengambil data ulasannya.
+# Ekspektasi: 200 OK. Mengembalikan array JSON berisi daftar ulasan. (Catatan: Endpoint ini biasanya bersifat Public / AllowAnonymous karena siapa saja bisa melihat ulasan).
+GET {{baseUrl}}/api/events/3/reviews
+Accept: application/json
+
+
+### 5. GET REVIEW UNTUK EVENT YANG BELUM ADA ULASAN (OK - ARRAY KOSONG)
+# Skenario: Mengambil data ulasan untuk Event ID yang baru dibuat atau Event ID yang tidak valid.
+# Ekspektasi: 200 OK. Mengembalikan array kosong `[]` beserta struktur pembungkus response-nya.
+GET {{baseUrl}}/api/events/9999/reviews
+Accept: application/json
+
+
+### =========================================================================
+### TAHAP 17: TESTING DASHBOARD STATISTIK (SUPER ADMIN / ORGANIZER)
+### =========================================================================
+
+# Pastikan Anda sudah login dan mendapatkan token, lalu masukkan ke dalam variabel {{token}}
+@token = <MASUKKAN_TOKEN_JWT_DI_SINI>
+
+### 1. UJI GET DASHBOARD STATISTIK KESELURUHAN (GLOBAL)
+# Skenario: Super Admin/Organizer mengakses statistik total penjualan, check-in, dll.
+# Ekspektasi: 200 OK. Data statistik keseluruhan sistem.
+GET {{baseUrl}}/api/dashboard/statistics
+Authorization: Bearer {{token}}
+Accept: application/json
+
+
+### 2. UJI GET STATISTIK PER EVENT (SPESIFIK)
+# Skenario: Organizer ingin melihat performa spesifik Event ID 1.
+# Ekspektasi: 200 OK. Data statistik spesifik untuk event tersebut.
+GET {{baseUrl}}/api/dashboard/statistics?eventId=1
+Authorization: Bearer {{token}}
+Accept: application/json
+
+
+### 3. UJI VALIDASI: EVENT TIDAK DITEMUKAN (NOT FOUND)
+# Skenario: Mencoba mengakses statistik untuk Event ID yang tidak ada di database (misal: 999).
+# Ekspektasi: 404 Not Found. Pesan error "Event with ID 999 not found."
+GET {{baseUrl}}/api/dashboard/statistics?eventId=999
+Authorization: Bearer {{token}}
+Accept: application/json
+
+
+### 4. UJI VALIDASI: AKSES DITOLAK (UNAUTHORIZED/FORBIDDEN)
+# Skenario: User dengan role 'Customer' mencoba mengakses dashboard.
+# Ekspektasi: 403 Forbidden (atau 401 jika token tidak valid/kadaluwarsa).
+GET {{baseUrl}}/api/dashboard/statistics
+Authorization: Bearer <TOKEN_USER_ROLE_CUSTOMER>
+Accept: application/json

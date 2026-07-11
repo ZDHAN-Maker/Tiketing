@@ -17,7 +17,11 @@ namespace Ticketing.API.Repositories
         {
             _context = context;
         }
-
+        public async Task<bool> ExistsAsync(long eventId)
+        {
+            // Cek keberadaan event dengan performa tinggi
+            return await _context.Events.AnyAsync(e => e.Id == eventId);
+        }
         public async Task<Event> AddEventAsync(Event newEvent)
         {
             await _context.Events.AddAsync(newEvent);

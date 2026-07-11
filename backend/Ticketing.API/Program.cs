@@ -73,6 +73,8 @@ builder.Services.AddScoped<IRefundRepository, RefundRepository>();
 builder.Services.AddScoped<IRefundService, RefundService>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 
 var app = builder.Build();
 
