@@ -41,6 +41,7 @@ namespace Ticketing.API.Repositories
         {
             _context.Events.Update(eventEntity);
             return Task.CompletedTask;
+            
         }
 
         public async Task AddPublishLogAsync(EventPublishLog log)

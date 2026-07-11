@@ -13,9 +13,40 @@ var builder = WebApplication.CreateBuilder(args);
 // ==========================================
 // 1. REGISTRASI CONTROLLERS & DB CONTEXT
 // ==========================================
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var configuredConnectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? builder.Configuration["ConnectionStrings:DefaultConnection"]
+    ?? builder.Configuration["Supabase:ConnectionString"];
+
+var connectionString = configuredConnectionString;
+
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    var host = builder.Configuration["Supabase:Host"];
+    var port = builder.Configuration["Supabase:Port"] ?? "5432";
+    var database = builder.Configuration["Supabase:Database"] ?? "postgres";
+    var username = builder.Configuration["Supabase:Username"] ?? "postgres";
+    var password = builder.Configuration["Supabase:Password"];
+    var sslMode = builder.Configuration["Supabase:SslMode"] ?? "Require";
+
+    connectionString = $"Host={host};Port={port};Database={database};Username={username};Password={password};Ssl Mode={sslMode};Trust Server Certificate=true;";
+}
+else if (connectionString.StartsWith("postgresql://", StringComparison.OrdinalIgnoreCase))
+{
+    var uri = new Uri(connectionString);
+    var path = uri.AbsolutePath.Trim('/');
+    var userInfo = uri.UserInfo.Split(':', 2);
+    var username = Uri.UnescapeDataString(userInfo[0]);
+    var password = userInfo.Length > 1 ? Uri.UnescapeDataString(userInfo[1]) : string.Empty;
+
+    connectionString = $"Host={uri.Host};Port={uri.Port};Database={path};Username={username};Password={password};Ssl Mode=Require;Trust Server Certificate=true;";
+}
+
 builder.Services.AddDbContext<TicketingDbContext>(options =>
-    options.UseNpgsql(connectionString));
+    options.UseNpgsql(connectionString, npgsqlOptions =>
+    {
+        npgsqlOptions.CommandTimeout(120);
+        npgsqlOptions.EnableRetryOnFailure(3, TimeSpan.FromSeconds(10), null);
+    }));
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
