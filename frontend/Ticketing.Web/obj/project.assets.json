@@ -2,6 +2,15 @@
   "version": 4,
   "targets": {
     "net10.0": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.App.Internal.Assets/10.0.9": {
         "type": "package",
         "build": {
@@ -10,6 +19,19 @@
         },
         "buildMultiTargeting": {
           "buildMultiTargeting/Microsoft.AspNetCore.App.Internal.Assets.targets": {}
+        }
+      },
+      "Microsoft.AspNetCore.Components.Authorization/10.0.9": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/_._": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/_._": {
+            "related": ".xml"
+          }
         }
       },
       "MudBlazor/9.6.0": {
@@ -35,6 +57,22 @@
     }
   },
   "libraries": {
+    "Blazored.LocalStorage/4.5.0": {
+      "sha512": "6nZuJwA7zNIKx83IsObiHXZb09ponJOpCClU3en+hI8ZFvrOKXeOw+H7TegQZQrvdR1n9fkrVkEBQZg8vx6ZTw==",
+      "type": "package",
+      "path": "blazored.localstorage/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "blazored.localstorage.4.5.0.nupkg.sha512",
+        "blazored.localstorage.nuspec",
+        "icon.png",
+        "lib/net6.0/Blazored.LocalStorage.dll",
+        "lib/net7.0/Blazored.LocalStorage.dll",
+        "lib/net8.0/Blazored.LocalStorage.dll"
+      ]
+    },
     "Microsoft.AspNetCore.App.Internal.Assets/10.0.9": {
       "sha512": "E9Wp/LPKAYkGOVBv4lt5U5TnUA/7pov7QZAwF3eI64kK8AAXqkPDwuadEOwpL1WXEfgecYm0fccluvABp32D8g==",
       "type": "package",
@@ -56,6 +94,21 @@
         "buildTransitive/Microsoft.AspNetCore.App.Internal.Assets.targets",
         "microsoft.aspnetcore.app.internal.assets.10.0.9.nupkg.sha512",
         "microsoft.aspnetcore.app.internal.assets.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Components.Authorization/10.0.9": {
+      "sha512": "02LpaCwhK+zwy20T2Bs9w1hlpuICwdOeLAm6qFF33cWYg4Q1vNwkZqKnsvnpCqMDTU8ynPhqMfz5ccfZAAa0vg==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.components.authorization/10.0.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.txt",
+        "lib/net10.0/Microsoft.AspNetCore.Components.Authorization.dll",
+        "lib/net10.0/Microsoft.AspNetCore.Components.Authorization.xml",
+        "microsoft.aspnetcore.components.authorization.10.0.9.nupkg.sha512",
+        "microsoft.aspnetcore.components.authorization.nuspec"
       ]
     },
     "MudBlazor/9.6.0": {
@@ -92,7 +145,9 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
+      "Blazored.LocalStorage >= 4.5.0",
       "Microsoft.AspNetCore.App.Internal.Assets >= 10.0.9",
+      "Microsoft.AspNetCore.Components.Authorization >= 10.0.9",
       "MudBlazor >= 9.6.0"
     ]
   },
@@ -103,11 +158,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Project\\Tiketing_1\\frontend\\Ticketing.WEB\\Ticketing.Web.csproj",
+      "projectUniqueName": "D:\\Project\\Tiketing_1\\frontend\\Ticketing.Web\\Ticketing.Web.csproj",
       "projectName": "Ticketing.Web",
-      "projectPath": "D:\\Project\\Tiketing_1\\frontend\\Ticketing.WEB\\Ticketing.Web.csproj",
+      "projectPath": "D:\\Project\\Tiketing_1\\frontend\\Ticketing.Web\\Ticketing.Web.csproj",
       "packagesPath": "C:\\Users\\upris\\.nuget\\packages\\",
-      "outputPath": "D:\\Project\\Tiketing_1\\frontend\\Ticketing.WEB\\obj\\",
+      "outputPath": "D:\\Project\\Tiketing_1\\frontend\\Ticketing.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -146,11 +201,19 @@
         "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
+          "Blazored.LocalStorage": {
+            "target": "Package",
+            "version": "[4.5.0, )"
+          },
           "Microsoft.AspNetCore.App.Internal.Assets": {
             "suppressParent": "All",
             "target": "Package",
             "version": "[10.0.9, )",
             "autoReferenced": true
+          },
+          "Microsoft.AspNetCore.Components.Authorization": {
+            "target": "Package",
+            "version": "[10.0.9, )"
           },
           "MudBlazor": {
             "target": "Package",
@@ -593,5 +656,17 @@
         }
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1510",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "PackageReference Microsoft.AspNetCore.Components.Authorization will not be pruned. Consider removing this package from your dependencies, as it is likely unnecessary.",
+      "libraryId": "Microsoft.AspNetCore.Components.Authorization",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }
